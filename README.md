@@ -1,0 +1,1 @@
+# ise_launch_template-terraform-azure-vm
