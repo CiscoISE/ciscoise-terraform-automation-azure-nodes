@@ -1,0 +1,6 @@
+subscription = "c66a3b82-c055-47cc-9004-64de591785ec"
+ise_resource_group = "ise-rg"
+location = "East US"
+vnet_name = "azlbvn"
+ise_lb_subnet_name = "websubnet"
+ise_vmss_subnet_name = "datasubnet"

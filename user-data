@@ -1,0 +1,10 @@
+hostname=isepanserver
+primarynameserver=168.63.129.16
+dnsdomain=example.com
+ntpserver=time.google.com
+timezone=UTC
+password=C!sc0Ind1@
+ersapi=yes
+openapi=yes
+pxGrid=yes
+pxgrid_cloud=yes
