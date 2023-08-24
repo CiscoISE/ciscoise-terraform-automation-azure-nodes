@@ -1,5 +1,5 @@
-subscription = "c66a3b82-c055-47cc-9004-64de591785ec"
-ise_resource_group = "ise-rg"
+subscription = ""
+ise_resource_group = "ise-resource-group"
 location = "East US"
 vnet_name = "azlbvn"
 ise_lb_subnet_name = "websubnet"
