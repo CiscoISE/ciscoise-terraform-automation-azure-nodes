@@ -43,11 +43,10 @@ resource "azurerm_lb_backend_address_pool_address" "backendpool-associate" {
 resource "azurerm_lb_probe" "ise_health_checks" {
   loadbalancer_id     = azurerm_lb.ise-lb.id
   name                = "https-probe"
-  protocol            = "Https"
+  protocol            = "Tcp"
   port                = 443
   interval_in_seconds = 15
   number_of_probes    = 2
-  request_path        = "/"
 }
 
 
