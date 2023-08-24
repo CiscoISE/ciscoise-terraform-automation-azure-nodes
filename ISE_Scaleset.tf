@@ -1,5 +1,10 @@
 /* https://learn.microsoft.com/en-us/marketplace/programmatic-deploy-of-marketplace-products  */
 
+data "azurerm_virtual_network" "ise_vnet" {
+  name                = var.vnet_name
+  resource_group_name = var.ise_resource_group
+}
+
 data "azurerm_subnet" "ise_vmss_subnet" {
   name                 = var.ise_vmss_subnet_name
   virtual_network_name = var.vnet_name
@@ -61,5 +66,17 @@ resource "azurerm_linux_virtual_machine_scale_set" "isevmss" {
 }
 
 
+resource "azurerm_private_dns_zone" "ise_vmss_private_dns_zone" {
+  name                = var.ise_vmss_private_dns_zone_name
+  resource_group_name = var.ise_resource_group
+}
 
+
+resource "azurerm_private_dns_zone_virtual_network_link" "ise_vnet_dns_link" {
+  name                  = var.ise_vnet_dns_link_name
+  resource_group_name   = var.ise_resource_group
+  registration_enabled  = true
+  private_dns_zone_name = azurerm_private_dns_zone.ise_vmss_private_dns_zone.name
+  virtual_network_id    = data.azurerm_virtual_network.ise_vnet.id
+}
 
