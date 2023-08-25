@@ -124,11 +124,11 @@ variable "ise_vmss_vm_nic_name" {
 # Private DNS zone related info
 
 variable "ise_vmss_private_dns_zone_name" {
-  type = string
+  type    = string
   default = "example.com"
 }
 
 variable "ise_vnet_dns_link_name" {
-  type = string
+  type    = string
   default = "ise_vnet_dns_link"
 }

@@ -26,6 +26,14 @@ resource "azurerm_linux_virtual_machine_scale_set" "isevmss" {
   instances           = var.ise_vmss_vm_count
   admin_username      = var.ise_vm_adminuser_name
   user_data           = base64encode(file("./user-data"))
+  zones               = [1, 2, 3]
+  zone_balance        = true
+  health_probe_id     = azurerm_lb_probe.ise_health_checks.id
+
+  automatic_instance_repair {
+    enabled      = true
+    grace_period = "PT30M"
+  }
 
   admin_ssh_key {
     username   = var.ise_vm_adminuser_name
@@ -60,6 +68,11 @@ resource "azurerm_linux_virtual_machine_scale_set" "isevmss" {
       load_balancer_backend_address_pool_ids = [azurerm_lb_backend_address_pool.ise-vmss-backendpool.id]
     }
   }
+
+  lifecycle {
+    ignore_changes = [instances]
+  }
+
   depends_on = [
     azurerm_marketplace_agreement.cisco_ise_marketplace_agrmt
   ]
@@ -80,3 +93,21 @@ resource "azurerm_private_dns_zone_virtual_network_link" "ise_vnet_dns_link" {
   virtual_network_id    = data.azurerm_virtual_network.ise_vnet.id
 }
 
+/* Scaling policy  */
+
+resource "azurerm_monitor_autoscale_setting" "ise_scaling_policy" {
+  name                = "ISEAutoscaleSetting"
+  resource_group_name = var.ise_resource_group
+  location            = var.location
+  target_resource_id  = azurerm_linux_virtual_machine_scale_set.isevmss.id
+
+  profile {
+    name = "ISE_scaling"
+
+    capacity {
+      default = 2
+      minimum = 2
+      maximum = 4
+    }
+  }
+}
