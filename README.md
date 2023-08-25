@@ -170,6 +170,7 @@ Terraform will perform the following actions:
       + do_not_run_extensions_on_overprovisioned_machines = false
       + extension_operations_enabled                      = (known after apply)
       + extensions_time_budget                            = "PT1H30M"
+      + health_probe_id                                   = (known after apply)
       + id                                                = (known after apply)
       + instances                                         = 1
       + location                                          = "eastus"
@@ -186,13 +187,23 @@ Terraform will perform the following actions:
       + unique_id                                         = (known after apply)
       + upgrade_mode                                      = "Manual"
       + user_data                                         = "aG9zdG5hbWU9aXNlcGFuc2VydmVyCnByaW1hcnluYW1lc2VydmVyPTE2OC42My4xMjkuMTYKZG5zZG9tYWluPWV4YW1wbGUuY29tCm50cHNlcnZlcj10aW1lLmdvb2dsZS5jb20KdGltZXpvbmU9VVRDCnBhc3N3b3JkPUMhc2MwSW5kMUAKZXJzYXBpPXllcwpvcGVuYXBpPXllcwpweEdyaWQ9eWVzCnB4Z3JpZF9jbG91ZD15ZXM="
-      + zone_balance                                      = false
+      + zone_balance                                      = true
+      + zones                                             = [
+          + "1",
+          + "2",
+          + "3",
+        ]
 
       + admin_ssh_key {
           + public_key = <<-EOT
                 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC70499pJB09BIIXpR6bSwgsR6nMdjJ72FbqwoF2dLhYtVJUQsYbmj1ouo1XynjE1rPbiCtVcO1lKKm4ErbyoVARr6QU38X0WKT9mvMJzPgTmca3BIAp/U0CZHOst7rux2i10nOAs4bBi8YpoTqsPLZSeTqumWvWcx+HVEq11PxAhCoWWMeW5/I1AoM1b1Jiho69n+bgdei+SjlJJ4sVAgayoARjgtayEFSOY6qAdHl1g23Fhy//kLIe0BCBGXcDZ8zlG+C+KKnqokDBnRrm4yOyQaCtRdNJPXpNqhecAAD0X6yZdLjOxfohI+r2zlxzRAXl96ppv975S4z7yit/vBPojTYbTHWLJVWof2N2vrqgcm/DSVWxh1cwUv38PNUuWCVpH4q8fKhZRKezM5ULBESnB5vVS7Z5DzMr7CkwrQkDD4VlsUWFQOlNuXMCT4GSPZPcE9XnzzkrMMnc8D4tfdUEGytnd/EE2f374uMjZ5tCxQfyFxreoEBw6AX3DSlWRKJmav9eMCqYBwJQB9pCU8q+LkRy8GIFwPkQq449BsObroDX4zItt3NvFtVODPUt+iBxzmNj4NJxbgA6SfO55BTvd26CANqSCgaTCvdSdOJj/OOX68sNHhcP6cuXNmX7nqcM/Xd9qCw3PB4IhQP5bQhCSN9r9jY9mZbOKcp9V3+Qw== iseadmin@myserver
             EOT
           + username   = "iseadmin"
+        }
+
+      + automatic_instance_repair {
+          + enabled      = true
+          + grace_period = "PT30M"
         }
 
       + network_interface {
@@ -241,6 +252,26 @@ Terraform will perform the following actions:
       + publisher           = "cisco"
     }
 
+  # azurerm_monitor_autoscale_setting.ise_scaling_policy will be created
+  + resource "azurerm_monitor_autoscale_setting" "ise_scaling_policy" {
+      + enabled             = true
+      + id                  = (known after apply)
+      + location            = "eastus"
+      + name                = "ISEAutoscaleSetting"
+      + resource_group_name = "ise_dev"
+      + target_resource_id  = (known after apply)
+
+      + profile {
+          + name = "ISE_scaling"
+
+          + capacity {
+              + default = 2
+              + maximum = 4
+              + minimum = 2
+            }
+        }
+    }
+
   # azurerm_private_dns_zone.ise_vmss_private_dns_zone will be created
   + resource "azurerm_private_dns_zone" "ise_vmss_private_dns_zone" {
       + id                                                    = (known after apply)
@@ -262,5 +293,6 @@ Terraform will perform the following actions:
       + virtual_network_id    = "/subscriptions/4af28428-fadd-42d1-ba1c-ba3eef6d4a6c/resourceGroups/ise_dev/providers/Microsoft.Network/virtualNetworks/esc_VNet"
     }
 
-Plan: 13 to add, 0 to change, 0 to destroy.
+Plan: 14 to add, 0 to change, 0 to destroy.
+
 ```
