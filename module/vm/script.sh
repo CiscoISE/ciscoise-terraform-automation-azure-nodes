@@ -1,0 +1,1 @@
+az vm image terms show --publisher cisco  --offer cisco-ise-virtual --plan cisco-ise_3_2
