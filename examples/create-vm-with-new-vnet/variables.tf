@@ -44,6 +44,10 @@ variable "ise_psn_node_names" {
   default = ["ise-psn-node-1", "ise-psn-node-2"]
 }
 
+variable "ise_vm_size_sku" {
+  type    = string
+  default = "Standard_B2ms"
+}
 
 ######################################################################################
 #######################    Block to add Loadbalancer variables #######################
@@ -113,10 +117,6 @@ variable "ise_vm_scaleset_name" {
   default = "ise-vm"
 }
 
-variable "ise_vm_size_sku" {
-  type    = string
-  default = "Standard_B2ms"
-}
 
 variable "ise_vm_vm_count" {
   type    = number
