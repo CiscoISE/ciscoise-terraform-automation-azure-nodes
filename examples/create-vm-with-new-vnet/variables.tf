@@ -35,16 +35,19 @@ variable "ise_vm_subnet_name" {
 
 
 variable "ise_pan_node_names" {
+  description = "Mention the nodes name for ISE Primary and Secondary node"
   type    = list(string)
   default = ["ise-pan-primary", "ise-pan-secondary"]
 }
 
 variable "ise_psn_node_names" {
+  description = "Mention the nodes name for ISE PSN nodes"
   type    = list(string)
   default = ["ise-psn-node-1", "ise-psn-node-2"]
 }
 
 variable "ise_vm_size_sku" {
+  description = "Select the ISE Virtual Machine size as per recommnedations mentioned in ISE documentation."
   type    = string
   default = "Standard_B2ms"
 }
