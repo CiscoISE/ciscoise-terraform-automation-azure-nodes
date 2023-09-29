@@ -28,6 +28,12 @@ variable "ise_vm_subnet_name" {
   default = "ps-prod-snet-app2"
 }
 
+
+######################################################################################
+#######################    Block to add ISE Nodes variable ###########################
+######################################################################################
+
+
 variable "ise_pan_node_names" {
   type    = list(string)
   default = ["ise-pan-primary", "ise-pan-secondary"]
@@ -37,6 +43,12 @@ variable "ise_psn_node_names" {
   type    = list(string)
   default = ["ise-psn-node-1", "ise-psn-node-2"]
 }
+
+
+######################################################################################
+#######################    Block to add Loadbalancer variables #######################
+######################################################################################
+
 
 variable "ise_lb_name" {
   type    = string
