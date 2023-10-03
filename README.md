@@ -48,13 +48,23 @@ To deploy using an existing VNET
   cd examples/create-vm-with-existing-vnet
   ```
 
-Here, we will be running it locally and will use Azure CLI for authentication and configure Terraform to use a specific `Subscription` by specifying it's value in `variables.tf` file for variable named as `subscription`
+Here, we will be running it locally and will use Azure CLI for authentication and configure Terraform to use a specific `Subscription` by specifying it's value in `variables.tf` file for variable named as `subscription` at path examples/create-vm-with-existing-vnet or examples/create-vm-with-new-vnet
 
 To deploy using a new VNET
 ```
 cd examples/create-vm-with-new-vnet
 ```
+## Update Terraform variables
 
+- Check for the Azure ISE VM Image subscription status for specific version. Example:- Checking for ISE version cisco-ise_3_2 
+```
+az vm image terms show --publisher cisco --offer cisco-ise-virtual --plan cisco-ise_3_2
+```  
+ If the output value is "accepted": false, then set the variable `marketplace_ise_image_agreement` to `false` in variables.tf at path examples/create-vm-with-new-vnet or  examples/create-vm-with-existing-vnet
+
+ If the output value is "accepted": true, then you can Run the terraform init, plan and apply to create the infra. Default variable is set to `false`
+
+ 
 Run below commands
  ```
  terraform init --upgrade
