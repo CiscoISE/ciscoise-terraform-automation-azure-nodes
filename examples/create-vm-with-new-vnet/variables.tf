@@ -25,11 +25,10 @@ variable "location" {
 #######################  Block for VNET related variables  ###########################
 ######################################################################################
 
-# variable "vnet_name" {
-#   description = "Mention the Virtual Network (VNET) name"
-#   type        = string
-#   default     = "ps-prod-vnet"
-# }
+variable "vnet_name" {
+  type    = string
+  default = "ise_vnet"
+}
 
 # variable "ise_lb_subnet_name" {
 #   description = "Mention the subnet name for Loadbalancer"
@@ -53,8 +52,8 @@ variable "location" {
 
 variable "vnet_address" {
   description = "Enter the Virtual Network CIDR"
-  type    = string
-  default = "10.0.0.0/16"
+  type        = string
+  default     = "10.0.0.0/16"
 }
 
 variable "public_subnet_cidrs" {
@@ -119,7 +118,7 @@ variable "ise_image_version" {
 variable "marketplace_ise_image_agreement" {
   description = "If ISE marketplace image agreement is already done set the value to 'true' else set it as 'false'. You can check the status by executing the Azure CLI command - 'az vm image terms show --publisher cisco  --offer cisco-ise-virtual --plan cisco-ise_3_2' "
   type        = bool
-  default     = false
+  default     = true
 }
 
 
