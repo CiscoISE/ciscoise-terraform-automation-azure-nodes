@@ -39,7 +39,7 @@ Clone this git repo by using below this command
   git clone https://github3.cisco.com/techops-operation/ise_launch_template-terraform-azure-vm.git
   ```
 
-Choose on of the following options to setup ISE infra
+Choose one of the following options to setup ISE infra
 1. [Deploy using an existing VNET](./examples/create-vm-with-existing-vnet/)
 2. [Deploy using a new VNET](./examples/create-vm-with-new-vnet/)
 

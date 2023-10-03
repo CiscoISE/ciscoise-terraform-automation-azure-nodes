@@ -5,7 +5,7 @@
 variable "subscription" {
   description = "Add the Azure subscription ID"
   type        = string
-  default     = "c8955be6-b5c8-4f9e-9a07-6b9c4e432a65"
+  default     = "4af28428-fadd-42d1-ba1c-ba3eef6d4a6c"
 }
 
 variable "ise_resource_group" {
