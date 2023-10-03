@@ -28,6 +28,11 @@ variable "ise_vm_subnet_name" {
   default = "ps-prod-snet-app2"
 }
 
+variable "availability_zone" {
+  type = string
+  default = "1"
+}
+
 variable "ise_lb_name" {
   type    = string
   default = "ise-int-loadbalancer"

@@ -1,6 +1,6 @@
 
 module "ise_vnet" {
-  source               = "git@github3.cisco.com:techops-operation/ise_launch_template-terraform-azure-vnet.git//modules/vnet?ref=rohit-vnet"
+  source               = "git@github3.cisco.com:techops-operation/ise_launch_template-terraform-azure-vnet.git//modules/vnet"
   location             = var.location
   vnet_name            = var.vnet_name
   ise_resource_group   = var.ise_resource_group

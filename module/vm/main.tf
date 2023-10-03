@@ -13,31 +13,6 @@ data "azurerm_subnet" "ise_vm_subnet" {
 }
 
 
-/* Creating Virtual Machine resource for ISE Primary and Secondary nodes */
-#To check the Marketplace image agreement statue - (az vm image terms show --publisher cisco  --offer cisco-ise-virtual --plan cisco-ise_3_2)
-
-# resource "null_resource" "check_agreement_status" {
-#   triggers = {
-#     always_run = "${timestamp()}"
-#   }
-
-#   provisioner "local-exec" {
-#     command = "./script.sh"  # Replace with the path to your script
-#     interpreter = ["bash"]  # Specify the interpreter if needed
-#   }
-
-#   #depends_on = [azurerm_marketplace_agreement.]
-# }
-
-# resource "azurerm_marketplace_agreement" "cisco_ise_marketplace_agrmt" {
-#   count     = null_resource.check_agreement_status.triggers.always_run ? 0 : 1
-#   publisher = var.ise_publisher
-#   offer     = var.ise_offer
-#   plan      = var.ise_plan_name
-
-#   depends_on = [ null_resource.check_agreement_status ]
-# } 
-
 resource "azurerm_marketplace_agreement" "cisco_ise_marketplace_agrmt" {
   count = var.marketplace_ise_image_agreement ? 0 : 1
   publisher = var.ise_publisher
@@ -99,9 +74,9 @@ resource "azurerm_linux_virtual_machine" "ise_vm" {
   location            = var.location
   size                = var.ise_vm_size_sku
   admin_username      = var.ise_vm_adminuser_name
-  zone                = "1"
+  zone                = var.availability_zone
   user_data = base64encode(templatefile("${path.module}/user_data.tftpl", {
-    name              = each.key
+    hostname          = each.key
     primarynameserver = var.primarynameserver
     dnsdomain         = var.dnsdomain
     ntpserver         = var.ntpserver
@@ -146,36 +121,3 @@ resource "azurerm_linux_virtual_machine" "ise_vm" {
   #   azurerm_marketplace_agreement.cisco_ise_marketplace_agrmt
   # ]
 }
-
-
-
-
-
-# resource "azurerm_network_security_group" "ise_nsg" {
-#   location            = "eastus"
-#   name                = "prod_app_nsg-vm"
-#   resource_group_name = var.ise_resource_group
-#   security_rule = [
-#     {
-#       access                                     = "Allow"
-#       description                                = ""
-#       destination_address_prefix                 = "*"
-#       destination_address_prefixes               = []
-#       destination_application_security_group_ids = []
-#       destination_port_range                     = "443"
-#       destination_port_ranges                    = []
-#       direction                                  = "Inbound"
-#       name                                       = "prod_app_nsg-rule"
-#       priority                                   = 100
-#       protocol                                   = "Tcp"
-#       source_address_prefix                      = "*"
-#       source_address_prefixes                    = []
-#       source_application_security_group_ids      = []
-#       source_port_range                          = "*"
-#       source_port_ranges                         = []
-#     },
-#   ]
-#   tags = {
-#     "refresh" = "test"
-#   }
-# }

@@ -182,3 +182,35 @@ resource "azurerm_subnet_nat_gateway_association" "azurerm_nat_gateway_ise_func_
   nat_gateway_id = azurerm_nat_gateway.cisco_ise_nat_gateways.id
   subnet_id      = azurerm_subnet.ise_func_subnet.id
 }
+
+
+
+
+# resource "azurerm_network_security_group" "ise_nsg" {
+#   location            = "eastus"
+#   name                = "prod_app_nsg-vm"
+#   resource_group_name = var.ise_resource_group
+#   security_rule = [
+#     {
+#       access                                     = "Allow"
+#       description                                = ""
+#       destination_address_prefix                 = "*"
+#       destination_address_prefixes               = []
+#       destination_application_security_group_ids = []
+#       destination_port_range                     = "443"
+#       destination_port_ranges                    = []
+#       direction                                  = "Inbound"
+#       name                                       = "prod_app_nsg-rule"
+#       priority                                   = 100
+#       protocol                                   = "Tcp"
+#       source_address_prefix                      = "*"
+#       source_address_prefixes                    = []
+#       source_application_security_group_ids      = []
+#       source_port_range                          = "*"
+#       source_port_ranges                         = []
+#     },
+#   ]
+#   tags = {
+#     "refresh" = "test"
+#   }
+# }

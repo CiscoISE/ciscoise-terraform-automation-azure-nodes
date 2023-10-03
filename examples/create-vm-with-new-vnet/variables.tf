@@ -5,7 +5,7 @@
 variable "subscription" {
   description = "Enter the Azure subscription ID"
   type        = string
-  default     = "c8955be6-b5c8-4f9e-9a07-6b9c4e432a65"
+  default     = "a8b4411b-d161-41bf-82f5-7d80b0f9aa35"
 }
 
 variable "ise_resource_group" {
@@ -42,11 +42,11 @@ variable "vnet_name" {
 #   default     = "ps-prod-snet-app2"
 # }
 
-# variable "ise_func_subnet" {
-#   description = "Mention the subnet name for Function App VNET integration, it is a service dedicated subnet delegated to service Microsoft.Web/serverFarms."
-#   type        = string
-#   default     = "ise_func_subnet"
-# }
+variable "ise_func_subnet" {
+  description = "Mention the subnet name for Function App VNET integration, it is a service dedicated subnet delegated to service Microsoft.Web/serverFarms."
+  type        = string
+  default     = "ise_func_subnet"
+}
 
 # VNET and subnet cidr 
 
@@ -118,7 +118,7 @@ variable "ise_image_version" {
 variable "marketplace_ise_image_agreement" {
   description = "If ISE marketplace image agreement is already done set the value to 'true' else set it as 'false'. You can check the status by executing the Azure CLI command - 'az vm image terms show --publisher cisco  --offer cisco-ise-virtual --plan cisco-ise_3_2' "
   type        = bool
-  default     = true
+  default     = false
 }
 
 
