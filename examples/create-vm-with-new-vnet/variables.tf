@@ -5,7 +5,7 @@
 variable "subscription" {
   description = "Enter the Azure subscription ID"
   type        = string
-  default     = "4af28428-fadd-42d1-ba1c-ba3eef6d4a6c"
+  default     = "c9fb1cf7-17f3-46ee-9c24-25c295140c28"
 }
 
 variable "ise_resource_group" {
@@ -121,6 +121,11 @@ variable "marketplace_ise_image_agreement" {
   default     = true
 }
 
+variable "marketplace_ise_image_agreement_psn" {
+  description = "If ISE marketplace image agreement is already done set the value to 'true' else set it as 'false'. You can check the status by executing the Azure CLI command - 'az vm image terms show --publisher cisco  --offer cisco-ise-virtual --plan cisco-ise_3_2' "
+  type        = bool
+  default     = true
+}
 
 
 ######################################################################################
@@ -226,11 +231,11 @@ variable "ise_lb_backend_address_pool_name" {
 ######################################################################################
 
 
-variable "ise_vm_private_dns_zone_name" {
-  description = "Provide the name for ISE Private DNS zone "
-  type        = string
-  default     = "example.com"
-}
+# variable "ise_vm_private_dns_zone_name" {
+#   description = "Provide the name for ISE Private DNS zone "
+#   type        = string
+#   default     = "example.com"
+# }
 
 variable "ise_vnet_dns_link_name" {
   description = "Provide the name for VNET link to associate with the Provide DNS zone"
@@ -255,7 +260,7 @@ variable "primarynameserver" {
 variable "dnsdomain" {
   description = "Enter the FQDN of the DNS domain. The entry can contain ASCII characters, numerals, hyphens (-), and periods (.)."
   type        = string
-  default     = "siyaram.com"
+  default     = "example.com"
 }
 
 variable "ntpserver" {
