@@ -113,6 +113,12 @@ variable "ise_vm_size_sku" {
   default     = "Standard_B2ms"
 }
 
+variable "ise_vm_size_sku_psn" {
+  description = "Mention the Virtual Machine size as per the ISE recommendations - https://www.cisco.com/c/en/us/td/docs/security/ise/ISE_on_Cloud/b_ISEonCloud/m_ISEonAzureServices.html "
+  type        = string
+  default     = "Standard_B2ms"
+}
+
 variable "disk_size" {
   description = "ISE node disk size"
   type        = number

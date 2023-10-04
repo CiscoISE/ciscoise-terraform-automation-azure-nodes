@@ -60,7 +60,7 @@ module "ise_psn_vm_cluster" {
   ise_resource_group              = var.ise_resource_group
   ise_node_names                  = var.ise_psn_node_names
   marketplace_ise_image_agreement = var.marketplace_ise_image_agreement_psn
-  ise_vm_size_sku                 = var.ise_vm_size_sku
+  ise_vm_size_sku                 = var.ise_vm_size_sku_psn
   disk_size                       = var.disk_size
   ise_image_sku                   = var.ise_image_sku
   ise_image_version               = var.ise_image_version
