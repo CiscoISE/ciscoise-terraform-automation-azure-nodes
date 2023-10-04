@@ -24,7 +24,7 @@ ise_psn_node_names = [
   "ise-psn-node-2"
 ]
 ise_publisher                       = "cisco"
-ise_resource_group                  = "pluralsight-resource-group"
+ise_resource_group                  = "ise-resource-group"
 ise_vm_adminuser_name               = "iseadmin"
 ise_vm_size_sku                     = "Standard_B2ms"
 ise_vm_size_sku_psn                 = "Standard_B2ms"
