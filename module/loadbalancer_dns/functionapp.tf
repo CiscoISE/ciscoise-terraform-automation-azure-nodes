@@ -73,27 +73,6 @@ resource "azurerm_linux_function_app" "ise-function-app" {
 }
 
 
-# Integrating VNET with the Function App
-
-# resource "azurerm_app_service_virtual_network_swift_connection" "func_vnet_int" {
-#   app_service_id = azurerm_linux_function_app.ise-function-app.id
-#   subnet_id      = data.azurerm_subnet.ise_func_subnet.id
-# }
-
-
-# resource "azurerm_app_service_source_control" "external_repo" {
-#   app_id   = azurerm_linux_function_app.ise-function-app.id
-#   repo_url = "https://github.com/ro6it/ise-node-setup.git"
-#   branch   = "main"
-# }
-
-# resource "azurerm_app_service_source_control_token" "external_repo_token" {
-#   type  = "GitHub"
-#   token = "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"
-# }
-
-#https://ro6it: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@github.com/ro6it/ise-node-setup.git
-
 # Creating App Configuration
 
 
