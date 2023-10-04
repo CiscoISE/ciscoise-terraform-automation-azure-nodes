@@ -59,13 +59,13 @@ module "ise_psn_vm_cluster" {
   ise_vm_subnet_name              = module.ise_vnet.ise_vm_subnet_name
   ise_resource_group              = var.ise_resource_group
   ise_node_names                  = var.ise_psn_node_names
-  marketplace_ise_image_agreement = var.marketplace_ise_image_agreement
+  marketplace_ise_image_agreement = var.marketplace_ise_image_agreement_psn
   ise_vm_size_sku                 = var.ise_vm_size_sku
   disk_size                       = var.disk_size
   ise_image_sku                   = var.ise_image_sku
   ise_image_version               = var.ise_image_version
   ise_plan_name                   = var.ise_plan_name
-  availability_zone               = var.availability_zone_pan
+  availability_zone               = var.availability_zone_psn
   primarynameserver               = var.primarynameserver
   dnsdomain                       = var.dnsdomain
   ntpserver                       = var.ntpserver
