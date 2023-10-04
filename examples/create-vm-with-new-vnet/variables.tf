@@ -5,7 +5,7 @@
 variable "subscription" {
   description = "Enter the Azure subscription ID"
   type        = string
-  default     = "c9fb1cf7-17f3-46ee-9c24-25c295140c28"
+  default     = "4af28428-fadd-42d1-ba1c-ba3eef6d4a6c"
 }
 
 variable "ise_resource_group" {
@@ -118,7 +118,7 @@ variable "ise_image_version" {
 variable "marketplace_ise_image_agreement" {
   description = "If ISE marketplace image agreement is already done set the value to 'true' else set it as 'false'. You can check the status by executing the Azure CLI command - 'az vm image terms show --publisher cisco  --offer cisco-ise-virtual --plan cisco-ise_3_2' "
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "marketplace_ise_image_agreement_psn" {
