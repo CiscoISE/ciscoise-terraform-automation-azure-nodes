@@ -23,6 +23,11 @@ resource "random_string" "function_app_suffix" {
   min_numeric = 0
 }
 
+resource "azurerm_source_control_token" "external_repo_token" {
+  type  = "GitHub"
+  token = var.github_token
+}
+
 resource "azurerm_application_insights" "func-appinsights" {
   name                = "func-appinsights" # Replace with your desired Application Insights name
   resource_group_name = var.ise_resource_group
@@ -46,8 +51,6 @@ resource "azurerm_linux_function_app" "ise-function-app" {
   storage_account_name       = azurerm_storage_account.ise-app-storage.name
   storage_account_access_key = azurerm_storage_account.ise-app-storage.primary_access_key
   virtual_network_subnet_id  = data.azurerm_subnet.ise_func_subnet.id
-  zip_deploy_file = "${path.module}/panpsn.zip"
-
 
   app_settings = {
     # "FUNCTIONS_WORKER_RUNTIME" = "python"
@@ -65,11 +68,23 @@ resource "azurerm_linux_function_app" "ise-function-app" {
     }
   }
 
+  lifecycle {
+    ignore_changes = [ site_config, app_settings ]
+  }
+
   #   connection_string {
   #     name  = "AzureWebJobsStorage"
   #     type  = "Custom"
   #     value = azurerm_storage_account.ise-app-storage.primary_connection_string
   #   }
+}
+
+# Configuring Github source_control
+
+resource "null_resource" "run_az_cli" {
+  provisioner "local-exec" {
+    command = "az functionapp deployment source config --branch main --manual-integration --name  ${azurerm_linux_function_app.ise-function-app.name} --repo-url ${var.github_repo} --resource-group ${var.ise_resource_group}"
+  }
 }
 
 

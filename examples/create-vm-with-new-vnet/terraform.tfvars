@@ -1,3 +1,4 @@
+admin_ssh_key_path     = "isekey.pub"
 availability_zone_pan  = "1"
 availability_zone_psn  = "2"
 disk_size              = 600
@@ -5,6 +6,8 @@ dnsdomain              = "example.com"
 ersapi                 = "yes"
 frontend_ip_allocation = "Dynamic"
 frontend_lb_ip_name    = "ise_lb_PrivateIPAddress"
+github_repo            = "https://github.com/ro6it/ise-node-setup"
+github_token           = "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"
 ise_func_subnet        = "ise_func_subnet"
 ise_func_subnet_cidr = [
   "10.0.14.0/26"
