@@ -96,7 +96,7 @@ resource "azurerm_linux_virtual_machine" "ise_vm" {
 
   admin_ssh_key {
     username   = var.ise_vm_adminuser_name
-    public_key = file("${path.module}/isekey.pub")
+    public_key = file(var.admin_ssh_public_key) #file("${path.module}/isekey.pub")
   }
 
   source_image_reference {

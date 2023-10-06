@@ -168,3 +168,15 @@ variable "appConfqdn" {
   type    = list(string)
   default = ["primary_fqdn", "secondary_fqdn"]
 }
+
+variable "github_token" {
+  description = "This token will be used to read the Github code having Repo and Workflow access"
+  type = string
+  default = ""
+}
+
+variable "github_repo" {
+  description = "Enter the Github URL of the repo hosting the Function App code"
+  type = string
+  default = ""
+}

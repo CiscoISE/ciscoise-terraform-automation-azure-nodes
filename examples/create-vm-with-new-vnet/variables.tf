@@ -177,6 +177,11 @@ variable "availability_zone_psn" {
   default = "2"
 }
 
+variable "admin_ssh_key_path" {
+  type        = string
+  description = "Path to the SSH public key file"
+  default     = "isekey.pub" # path to public key
+}
 
 ######################################################################################
 ################ Block for ISE Nodes Hostname related variables  #####################
@@ -249,7 +254,17 @@ variable "ise_vnet_dns_link_name" {
   default     = "ise_vnet_dns_link"
 }
 
+variable "github_token" {
+  description = "This token will be used to read the Github code having Repo and Workflow access"
+  type        = string
+  default     = ""
+}
 
+variable "github_repo" {
+  description = "Enter the Github URL of the repo hosting the Function App code"
+  type        = string
+  default     = ""
+}
 
 ######################################################################################
 ##################### Block for ISE Node Userdata variables  #########################

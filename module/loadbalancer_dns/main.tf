@@ -45,6 +45,10 @@ resource "azurerm_private_dns_zone_virtual_network_link" "ise_vnet_dns_link" {
   # registration_enabled  = true
   private_dns_zone_name = azurerm_private_dns_zone.ise_vm_private_dns_zone.name
   virtual_network_id    = data.azurerm_virtual_network.ise_vnet.id
+
+  lifecycle {
+    ignore_changes = [ virtual_network_id ]
+  }
 }
 
 /* Creating Private DNS hosted zone and enabling auto-registration on Virtual Machine creation */

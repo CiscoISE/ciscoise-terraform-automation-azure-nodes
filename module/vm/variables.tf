@@ -205,3 +205,8 @@ variable "marketplace_ise_image_agreement" {
   type = bool
   default = false
 }
+
+variable "admin_ssh_public_key" {
+  description = "SSH public key for VM access"
+  type = string
+}
