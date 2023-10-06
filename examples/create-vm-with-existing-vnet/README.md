@@ -164,12 +164,12 @@ az vm image terms show --publisher cisco --offer cisco-ise-virtual --plan cisco-
 
 | Name | Description |
 |------|-------------|
-| <a name="output_loadbalancer_frontendIP"></a> [loadbalancer\_frontendIP](#output\_loadbalancer\_frontendIP) | n/a |
-| <a name="output_pan_node_name"></a> [pan\_node\_name](#output\_pan\_node\_name) | n/a |
-| <a name="output_pan_private_ip_address"></a> [pan\_private\_ip\_address](#output\_pan\_private\_ip\_address) | n/a |
-| <a name="output_private_dns_records"></a> [private\_dns\_records](#output\_private\_dns\_records) | n/a |
-| <a name="output_psn_node_name"></a> [psn\_node\_name](#output\_psn\_node\_name) | n/a |
-| <a name="output_psn_private_ip_address"></a> [psn\_private\_ip\_address](#output\_psn\_private\_ip\_address) | n/a |
+| <a name="output_loadbalancer_frontendIP"></a> [loadbalancer\_frontendIP](#output\_loadbalancer\_frontendIP) | Loadbalancer Private IP Address |
+| <a name="output_pan_node_name"></a> [pan\_node\_name](#output\_pan\_node\_name) | PAN node hostname |
+| <a name="output_pan_private_ip_address"></a> [pan\_private\_ip\_address](#output\_pan\_private\_ip\_address) | PAN node Private IP Address |
+| <a name="output_private_dns_records"></a> [private\_dns\_records](#output\_private\_dns\_records) | ISE node FQDN  |
+| <a name="output_psn_node_name"></a> [psn\_node\_name](#output\_psn\_node\_name) | PSN node hostnames |
+| <a name="output_psn_private_ip_address"></a> [psn\_private\_ip\_address](#output\_psn\_private\_ip\_address) | PAN node Private IP Address  |
 ## Initialize , Review and Apply
 
 Run below commands
