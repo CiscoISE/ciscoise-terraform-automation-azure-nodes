@@ -13,6 +13,13 @@ This project runs terraform module to setup ISE infrastructure on Azure Cloud Pl
 
 2. To install Azure CLI, follow the instructions mentioned here - [Install Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
 
+## Resources
+- Resource Group
+- 1-Virtual Network, 3-Public Subnets, 3-Private Subnets(2-VM+LB and, 1-Delegated Subnet for VNET integration with Function App), Private DNS zone, App Configuration.
+- Function App, App Service Plan B1 - linux, Application Insights and Storage account
+- Virtual Machines - 4 (2-Primary, Secondary nodes and 2-PSN nodes)
+- Internal Load balancer
+
 ## Authenticating using the Azure CLI
 
 To configure and allow access to Azure account, we need a user having atleast `Contributor` level access . Run the below command to get Azure access using CLI. It will prompt you to login through web browser
@@ -84,7 +91,7 @@ cd examples/create-vm-with-new-vnet
 For SSH access to ISE Virtual Machines, create a SSH keypair using below command under the directory   `examples/create-vm-with-new-vnet` and update the variable `admin_ssh_key_path` value with  SSH public key name in `terraform.tfvars` file.
 
 ```
- ssh-keygen -t rsa -m PEM -b 4096 -C "azureuser@myserver" -f isekey
+ssh-keygen -t rsa -m PEM -b 4096 -C "azureuser@myserver" -f isekey
 ```
 
 Guide on how to create SSH keypair - https://learn.microsoft.com/en-us/azure/virtual-machines/linux/create-ssh-keys-detailed
