@@ -11,7 +11,7 @@ variable "subscription" {
 variable "ise_resource_group" {
   description = "Mention the Resource Group name"
   type        = string
-  default     = "pluralsight-resource-group"
+  default     = "ise-resource-group"
 }
 
 variable "location" {
