@@ -107,7 +107,7 @@ az vm image terms show --publisher cisco --offer cisco-ise-virtual --plan cisco-
 
  If the output value is "accepted": true, then you can Run the terraform init, plan and apply to create the infra. Default variable is set to `false`
 
-# # Update the other variables as per the requirement.
+## Update the other variables as per the requirement.
 
 ## Input variables
 
