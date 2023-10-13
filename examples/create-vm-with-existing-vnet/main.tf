@@ -8,7 +8,10 @@ module "loadbalancer_dns" {
   ise_func_subnet              = var.ise_func_subnet    #module.ise_vnet.ise_func_subnet
   ise_node_names               = concat(var.ise_psn_node_names, var.ise_pan_node_names)
   ise_pan_node_names           = var.ise_pan_node_names
+  ise_psn_node_names           = var.ise_psn_node_names
   ise_vm_private_dns_zone_name = var.dnsdomain
+  ise_vm_adminuser_name        = var.ise_vm_adminuser_name
+  password                     = var.password
   github_token                 = var.github_token
   github_repo                  = var.github_repo
 

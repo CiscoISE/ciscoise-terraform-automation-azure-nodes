@@ -14,7 +14,7 @@ data "azurerm_subnet" "ise_vm_subnet" {
 
 
 resource "azurerm_marketplace_agreement" "cisco_ise_marketplace_agrmt" {
-  count = var.marketplace_ise_image_agreement ? 0 : 1
+  count     = var.marketplace_ise_image_agreement ? 0 : 1
   publisher = var.ise_publisher
   offer     = var.ise_offer
   plan      = var.ise_plan_name
@@ -39,33 +39,14 @@ resource "azurerm_network_interface" "ise_vm_nic" {
     subnet_id                     = data.azurerm_subnet.ise_vm_subnet.id
     private_ip_address_allocation = "Dynamic"
   }
-  
+
 }
 
-# locals {
-#   ise_node_name = [
-#     "ise-pan-primary",
-#     "ise-pan-secondary"
-#   ]
-# }
 
 locals {
   ise_node_name = var.ise_node_names
 }
 
-
-# locals {
-#   ise_node_name = [
-#     "ise-pan-primary",
-#     "ise-pan-secondary"
-#   ]
-#   ise_psn_node = [
-#     "ise-psn-node-1",
-#     "ise-psn-node-2",
-#     "ise-psn-node-3",
-#     "ise-psn-node-4"
-#   ]
-# }
 
 resource "azurerm_linux_virtual_machine" "ise_vm" {
   for_each            = toset(local.ise_node_name)

@@ -101,10 +101,10 @@ variable "ise_vm_vm_count" {
   default = 1
 }
 
-variable "ise_vm_adminuser_name" {
-  type    = string
-  default = "iseadmin"
-}
+# variable "ise_vm_adminuser_name" {
+#   type    = string
+#   default = "iseadmin"
+# }
 
 variable "ise_vm_vm_storage_account_type" {
   type    = string
@@ -159,6 +159,10 @@ variable "ise_pan_node_names" {
   default = ["ise-pan-primary", "ise-pan-secondary"]
 }
 
+variable "ise_psn_node_names" {
+  type = list(string)
+}
+
 variable "ise_func_subnet" {
   type    = string
   default = ""
@@ -169,14 +173,29 @@ variable "appConfqdn" {
   default = ["primary_fqdn", "secondary_fqdn"]
 }
 
+variable "username_password_key" {
+  type    = list(string)
+  default = ["admin_username", "admin_password"]
+}
+
+variable "ise_vm_adminuser_name" {
+  type    = string
+  default = ""
+}
+
+variable "password" {
+  type    = string
+  default = ""
+}
+
 variable "github_token" {
   description = "This token will be used to read the Github code having Repo and Workflow access"
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }
 
 variable "github_repo" {
   description = "Enter the Github URL of the repo hosting the Function App code"
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }

@@ -29,7 +29,7 @@ variable "ise_vm_subnet_name" {
 }
 
 variable "availability_zone" {
-  type = string
+  type    = string
   default = "1"
 }
 
@@ -172,7 +172,7 @@ variable "ntpserver" {
 }
 
 variable "timezone" {
-  type = string
+  type    = string
   default = "UTC"
 }
 
@@ -202,11 +202,11 @@ variable "pxgrid_cloud" {
 }
 
 variable "marketplace_ise_image_agreement" {
-  type = bool
+  type    = bool
   default = false
 }
 
 variable "admin_ssh_public_key" {
   description = "SSH public key for VM access"
-  type = string
+  type        = string
 }
