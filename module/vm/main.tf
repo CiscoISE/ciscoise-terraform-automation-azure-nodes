@@ -25,7 +25,7 @@ resource "azurerm_marketplace_agreement" "cisco_ise_marketplace_agrmt" {
 #   location                     = var.location
 #   resource_group_name          = var.ise_resource_group
 #   platform_fault_domain_count  = 3
-#   platform_update_domain_count = 3
+#   platform_update_domain_count = 5
 # }
 
 resource "azurerm_network_interface" "ise_vm_nic" {

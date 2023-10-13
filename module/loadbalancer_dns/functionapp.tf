@@ -27,10 +27,19 @@ resource "azurerm_source_control_token" "external_repo_token" {
   token = var.github_token
 }
 
+resource "azurerm_log_analytics_workspace" "ise_log_workspace" {
+  name                = "workspace-test"
+  location            = var.location
+  resource_group_name = var.ise_resource_group
+  sku                 = "PerGB2018"
+  retention_in_days   = 30
+}
+
 resource "azurerm_application_insights" "func-appinsights" {
   name                = "func-appinsights" # Replace with your desired Application Insights name
   resource_group_name = var.ise_resource_group
   location            = var.location
+  workspace_id        = azurerm_log_analytics_workspace.ise_log_workspace.id
   application_type    = "web"
 }
 
@@ -83,7 +92,7 @@ resource "null_resource" "run_az_cli" {
 # Creating App Configuration
 
 resource "azurerm_app_configuration" "ise_appconf" {
-  name                = "appConfISE"
+  name                = "ise-appconf-${random_string.function_app_suffix.result}"
   resource_group_name = var.ise_resource_group
   location            = var.location
 }

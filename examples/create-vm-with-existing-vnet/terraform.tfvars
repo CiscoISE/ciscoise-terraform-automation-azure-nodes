@@ -1,6 +1,6 @@
 admin_ssh_key_path               = "isekey.pub"
-availability_zone_pan            = "1"
-availability_zone_psn            = "2"
+availability_zone_pan            = null #South India doesn't support availability zone
+availability_zone_psn            = null #South India doesn't support availability zone
 disk_size                        = 600
 dnsdomain                        = "example.com"
 ersapi                           = "yes"
@@ -27,7 +27,7 @@ ise_psn_node_names = [
   "ise-psn-node-2"
 ]
 ise_publisher                       = "cisco"
-ise_resource_group                  = "ise-resource-group"
+ise_resource_group                  = "ise-tf-test"
 ise_vm_adminuser_name               = "iseadmin"
 ise_vm_size_sku                     = "Standard_B2ms"
 ise_vm_size_sku_psn                 = "Standard_B2ms"
@@ -35,8 +35,8 @@ ise_vm_subnet_name                  = "ps-prod-snet-app2"
 ise_vm_vm_sa_caching                = "ReadWrite"
 ise_vm_vm_storage_account_type      = "Premium_LRS"
 ise_vnet_dns_link_name              = "ise_vnet_dns_link"
-location                            = "East US"
-marketplace_ise_image_agreement     = false
+location                            = "South India"
+marketplace_ise_image_agreement     = true
 marketplace_ise_image_agreement_psn = true
 ntpserver                           = "time.google.com"
 openapi                             = "yes"
@@ -44,6 +44,6 @@ password                            = "C!sc0Ind1@"
 primarynameserver                   = "168.63.129.16"
 pxGrid                              = "yes"
 pxgrid_cloud                        = "yes"
-subscription                        = "6de9a5f9-e556-47d9-b34f-6a1799bedff0"
+subscription                        = "4af28428-fadd-42d1-ba1c-ba3eef6d4a6c"
 timezone                            = "UTC"
-vnet_name                           = "ps-prod-vnet"
+vnet_name                           = "isetestvnet"
