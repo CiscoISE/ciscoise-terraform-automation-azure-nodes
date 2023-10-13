@@ -8,7 +8,7 @@ output "ise-vm-backendpool" {
 
 
 output "private_dns_records" {
-  value = [ for ise_fqdn in azurerm_private_dns_a_record.ise_vm_dns_record : ise_fqdn.fqdn ]
+  value = [for ise_fqdn in azurerm_private_dns_a_record.ise_vm_dns_record : ise_fqdn.fqdn]
 }
 
 # output "node_name" {

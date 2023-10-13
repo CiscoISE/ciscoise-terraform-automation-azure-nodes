@@ -26,7 +26,8 @@ ise_plan_name    = "cisco-ise_3_2"
 ise_plan_product = "cisco-ise-virtual"
 ise_psn_node_names = [
   "ise-psn-node-1",
-  "ise-psn-node-2"
+  "ise-psn-node-2",
+  "ise-psn-node-3"
 ]
 ise_publisher                       = "cisco"
 ise_resource_group                  = "Cisco_ISE_RG"
@@ -37,7 +38,7 @@ ise_vm_vm_sa_caching                = "ReadWrite"
 ise_vm_vm_storage_account_type      = "Premium_LRS"
 ise_vnet_dns_link_name              = "ise_vnet_dns_link"
 location                            = "East US"
-marketplace_ise_image_agreement     = false
+marketplace_ise_image_agreement     = true
 marketplace_ise_image_agreement_psn = true
 ntpserver                           = "time.google.com"
 openapi                             = "yes"
