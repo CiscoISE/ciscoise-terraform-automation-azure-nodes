@@ -169,12 +169,12 @@ variable "ise_vm_vm_sa_caching" {
 
 variable "availability_zone_pan" {
   type    = string
-  default = "1"
+  default = null
 }
 
 variable "availability_zone_psn" {
   type    = string
-  default = "2"
+  default = null
 }
 
 variable "admin_ssh_key_path" {

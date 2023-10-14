@@ -30,7 +30,7 @@ variable "ise_vm_subnet_name" {
 
 variable "availability_zone" {
   type    = string
-  default = "1"
+  default = null
 }
 
 variable "ise_lb_name" {

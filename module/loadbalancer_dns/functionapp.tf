@@ -27,10 +27,19 @@ resource "azurerm_source_control_token" "external_repo_token" {
   token = var.github_token
 }
 
+resource "azurerm_log_analytics_workspace" "ise_log_workspace" {
+  name                = "workspace-test"
+  location            = var.location
+  resource_group_name = var.ise_resource_group
+  sku                 = "PerGB2018"
+  retention_in_days   = 30
+}
+
 resource "azurerm_application_insights" "func-appinsights" {
   name                = "func-appinsights" # Replace with your desired Application Insights name
   resource_group_name = var.ise_resource_group
   location            = var.location
+  workspace_id        = azurerm_log_analytics_workspace.ise_log_workspace.id
   application_type    = "web"
 }
 
@@ -65,7 +74,7 @@ resource "azurerm_linux_function_app" "ise-function-app" {
   }
 
   lifecycle {
-    ignore_changes = [site_config, app_settings]
+    ignore_changes = [site_config, app_settings, tags]
   }
 
 }
@@ -80,10 +89,15 @@ resource "null_resource" "run_az_cli" {
 }
 
 
+
+
+
+
+
 # Creating App Configuration
 
 resource "azurerm_app_configuration" "ise_appconf" {
-  name                = "appConfISE"
+  name                = "ise-appconf-${random_string.function_app_suffix.result}"
   resource_group_name = var.ise_resource_group
   location            = var.location
 }
@@ -125,5 +139,14 @@ resource "azurerm_app_configuration_key" "kv_username_password" {
   for_each               = local.combined_user_password_kv
   key                    = each.key
   value                  = each.value
+
+}
+
+# Storing Azure function HTTP trigger function endpoint in App conf
+
+resource "azurerm_app_configuration_key" "function_url" {
+  configuration_store_id = azurerm_app_configuration.ise_appconf.id
+  key                    = "function_url"
+  value                  = "https://${azurerm_linux_function_app.ise-function-app.name}.azurewebsites.net/api/HttpTrigger1"
 
 }

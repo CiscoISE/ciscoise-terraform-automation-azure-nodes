@@ -10,7 +10,7 @@ variable "ise_resource_group" {
 
 variable "location" {
   type    = string
-  default = "East US"
+  default = ""
 }
 
 variable "vnet_name" {

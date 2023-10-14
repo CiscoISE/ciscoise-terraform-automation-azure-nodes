@@ -13,6 +13,7 @@ module "ise_vnet" {
 module "loadbalancer_dns" {
   source                       = "../../module/loadbalancer_dns"
   vnet_name                    = module.ise_vnet.vnet_name
+  location                     = var.location
   ise_resource_group           = var.ise_resource_group
   ise_lb_subnet_name           = module.ise_vnet.ise_lb_subnet_name
   ise_func_subnet              = module.ise_vnet.ise_func_subnet
