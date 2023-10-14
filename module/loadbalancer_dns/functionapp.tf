@@ -74,7 +74,7 @@ resource "azurerm_linux_function_app" "ise-function-app" {
   }
 
   lifecycle {
-    ignore_changes = [site_config, app_settings]
+    ignore_changes = [site_config, app_settings, tags]
   }
 
 }
@@ -87,6 +87,11 @@ resource "null_resource" "run_az_cli" {
     command = "az functionapp deployment source config --branch main --manual-integration --name  ${azurerm_linux_function_app.ise-function-app.name} --repo-url ${var.github_repo} --resource-group ${var.ise_resource_group}"
   }
 }
+
+
+
+
+
 
 
 # Creating App Configuration
@@ -134,5 +139,14 @@ resource "azurerm_app_configuration_key" "kv_username_password" {
   for_each               = local.combined_user_password_kv
   key                    = each.key
   value                  = each.value
+
+}
+
+# Storing Azure function HTTP trigger function endpoint in App conf
+
+resource "azurerm_app_configuration_key" "function_url" {
+  configuration_store_id = azurerm_app_configuration.ise_appconf.id
+  key                    = "function_url"
+  value                  = "https://${azurerm_linux_function_app.ise-function-app.name}.azurewebsites.net/api/HttpTrigger1"
 
 }
