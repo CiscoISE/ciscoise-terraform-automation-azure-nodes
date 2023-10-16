@@ -6,7 +6,7 @@ This project runs terraform module to setup ISE infrastructure on Azure Cloud Pl
 - Terraform ~> 1.5.x
 - Azure provider - Azurerm v3.69.0
 - Azure CLI
-- Azure subscription with at least `Contributor` level access.
+- Azure subscription with at least `Contributor` level access and App Configuration Data Owner role assigned.
 
 ## Installations
 1. To install terraform, follow the instructions as per your operating system - [Install Terraform](https://developer.hashicorp.com/terraform/tutorials/azure-get-started/install-cli)

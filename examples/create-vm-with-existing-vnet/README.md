@@ -6,7 +6,7 @@ This project runs terraform module to setup ISE infrastructure on Azure Cloud Pl
 - Terraform ~> 1.5.x
 - Azure provider - Azurerm v3.69.0
 - Azure CLI
-- Azure subscription with at least `Contributor` level access.
+- Azure subscription with at least `Contributor` level access and App Configuration Data Owner role assigned.
 - Resource Group
 - Virtual Network
 - 3 Private Subnets - (2 subnets for deploying VM and Loadbalancer and, 1 - subnet delegated to service Microsoft.Web/serverFarms  for Function App VNET integration)
