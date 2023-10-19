@@ -55,7 +55,7 @@ resource "azurerm_linux_virtual_machine" "ise_vm" {
   location            = var.location
   size                = var.ise_vm_size_sku
   admin_username      = var.ise_vm_adminuser_name
-  zone                = var.availability_zone
+  zone                = (index(var.ise_node_names, each.value) % 3) + 1
   user_data = base64encode(templatefile("${path.module}/user_data.tftpl", {
     hostname          = each.key
     primarynameserver = var.primarynameserver
