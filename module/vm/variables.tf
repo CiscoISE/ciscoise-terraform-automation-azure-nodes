@@ -20,12 +20,12 @@ variable "vnet_name" {
 
 variable "ise_lb_subnet_name" {
   type    = string
-  default = "ps-prod-snet-app1"
+  default = ""
 }
 
 variable "ise_vm_subnet_name" {
   type    = string
-  default = "ps-prod-snet-app2"
+  default = ""
 }
 
 variable "availability_zone" {
@@ -118,7 +118,7 @@ variable "ise_vm_vm_storage_account_type" {
 
 variable "disk_size" {
   type    = number
-  default = 600
+  default = 300
 }
 
 variable "ise_vm_vm_sa_caching" {
@@ -136,7 +136,7 @@ variable "ise_vm_vm_nic_name" {
 
 variable "ise_vm_private_dns_zone_name" {
   type    = string
-  default = "example.com"
+  default = ""
 }
 
 variable "ise_vnet_dns_link_name" {
