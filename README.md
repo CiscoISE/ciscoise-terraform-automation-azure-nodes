@@ -7,11 +7,14 @@ This project runs terraform module to setup ISE infrastructure on Azure Cloud Pl
 - Azure CLI
 - Azure subscription with at least `Contributor` level access and `App Configuration Data Owner` role assigned.
 
+
+
 ## Installations
 
 1. To install terraform, follow the instructions as per your operating system - [Install Terraform](https://developer.hashicorp.com/terraform/tutorials/azure-get-started/install-cli)
 
 2. To install Azure CLI, follow the instructions mentioned here - [Install Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
+
 
   
 ## Configuring and Authenticating using Azure CLI
@@ -31,6 +34,7 @@ To sign in, use a web browser to open the page https://microsoft.com/devicelogin
 `NOTE:` Please refer Terraform documentation for other authentication methods. -  https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs
 
 
+
 ## Prerequisites
 
 1. Setup SSH for git, follow this documentation - [How to setup SSH for git](https://www.warp.dev/terminus/git-clone-ssh) 
@@ -41,6 +45,8 @@ To sign in, use a web browser to open the page https://microsoft.com/devicelogin
 6. For existing VNET setup: 3 Private Subnets - (2 subnets for deploying VM and Loadbalancer and, 1 - subnet delegated to service Microsoft.Web/serverFarms  for Function App VNET integration)
   
 Check for region that supports availability zone  - https://azure.microsoft.com/en-gb/explore/global-infrastructure/geographies/#geographies   
+
+
 
 ## Run terraform modules
 
@@ -66,6 +72,7 @@ Here, we are using Azure CLI for authentication and configure Terraform to use a
   Refer [create-vm-with-existing-vnet README](./examples/create-vm-with-existing-vnet/README.md) and update the variables in `terraform.tfvars`.
 
 
+
 2. [Deploy using a new VNET](./examples/create-vm-with-new-vnet/)
 
 To deploy using a new VNET
@@ -77,6 +84,7 @@ cd examples/create-vm-with-new-vnet
 Here, we are using Azure CLI for authentication and configure Terraform to use a specific `Subscription` by specifying it's value in `terraform.tfvars` file for variable named as `subscription`.
 
   Refer [create-vm-with-new-vnet README](./examples/create-vm-with-new-vnet/README.md) and update the variables in `terraform.tfvars`.
+
 
   
 After updating the `terraform.tfvars` file, run the below commands:
