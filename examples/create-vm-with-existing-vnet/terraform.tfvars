@@ -29,7 +29,7 @@ ise_offer                       = "cisco-ise-virtual" # Azure marketplace ISE im
 ise_plan_name                   = "cisco-ise_3_2"     # Available options - cisco-ise_3_2 or cisco-ise_3_3
 ise_plan_product                = "cisco-ise-virtual" # Azure marketplace ISE image product - (Do not change)
 ise_publisher                   = "cisco"             # Azure marketplace ISE image publisher - (Do not change)
-marketplace_ise_image_agreement = true                # Accept Azure Marketplace term so that the image can be used to create VMs. Set the value to true/false based on output of (az vm image terms show --publisher cisco --offer cisco-ise-virtual --plan cisco-ise_3_2)
+marketplace_ise_image_agreement = true                # Set the value to true/false based on output of command (az vm image terms show --publisher cisco --offer cisco-ise-virtual --plan cisco-ise_3_2)  - Azure Marketplace TnC required to accept so that the image can be used to create VMs. 
 
 
 # Enter the PAN and PSN Node hostnames:
