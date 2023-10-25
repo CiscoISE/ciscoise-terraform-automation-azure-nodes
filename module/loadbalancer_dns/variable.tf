@@ -1,191 +1,157 @@
+######################################################################################
+#######################     Block to add Azure variables   ###########################
+######################################################################################
+
 variable "subscription" {
-  type    = string
-  default = ""
+  description = "Enter the Azure subscription ID"
+  type        = string
+  default     = ""
 }
 
 variable "ise_resource_group" {
-  type    = string
-  default = ""
+  description = "Enter the Resource Group name"
+  type        = string
+  default     = ""
 }
 
 variable "location" {
-  type    = string
-  default = ""
+  description = "Enter the region where you want to deploy resources"
+  type        = string
+  default     = ""
 }
 
+
+######################################################################################
+##################  Block to add Virtual Machine Network variables  ##################
+######################################################################################
+
 variable "vnet_name" {
-  type    = string
-  default = ""
+  description = "Enter the Virtual Network (VNET) name."
+  type        = string
+  default     = ""
 }
 
 variable "ise_lb_subnet_name" {
-  type    = string
-  default = "ps-prod-snet-app1"
+  description = "Enter the subnet name for Loadbalancer."
+  type        = string
+  default     = ""
 }
 
 variable "ise_vm_subnet_name" {
-  type    = string
-  default = "ps-prod-snet-app2"
-}
-
-variable "ise_lb_name" {
-  type    = string
-  default = "ise-int-loadbalancer"
-}
-
-variable "ise_lb_sku" {
-  type    = string
-  default = "Standard"
-}
-
-variable "frontend_lb_ip_name" {
-  type    = string
-  default = "ise_lb_PrivateIPAddress"
-}
-
-variable "frontend_ip_allocation" {
-  type    = string
-  default = "Dynamic"
-}
-
-variable "ise_lb_backend_address_pool_name" {
-  type    = string
-  default = "ise-BackendAddressPool"
-}
-
-
-/* Virtual Machine Scale Set variables  */
-
-variable "ise_publisher" {
-  type    = string
-  default = "cisco"
-}
-
-variable "ise_offer" {
-  type    = string
-  default = "cisco-ise-virtual"
-}
-
-variable "ise_plan_name" {
-  type    = string
-  default = "cisco-ise_3_2"
-}
-
-variable "ise_plan_product" {
-  type    = string
-  default = "cisco-ise-virtual"
-}
-
-variable "ise_image_sku" {
-  type    = string
-  default = "cisco-ise_3_2"
-}
-
-variable "ise_image_version" {
-  type    = string
-  default = "3.2.543"
-}
-
-variable "ise_vm_scaleset_name" {
-  type    = string
-  default = "ise-vm"
-}
-
-variable "ise_vm_size_sku" {
-  type    = string
-  default = "Standard_B2ms"
-}
-
-variable "ise_vm_vm_count" {
-  type    = number
-  default = 1
-}
-
-# variable "ise_vm_adminuser_name" {
-#   type    = string
-#   default = "iseadmin"
-# }
-
-variable "ise_vm_vm_storage_account_type" {
-  type    = string
-  default = "Premium_LRS"
-}
-
-variable "disk_size" {
-  type    = number
-  default = 600
-}
-
-variable "ise_vm_vm_sa_caching" {
-  type    = string
-  default = "ReadWrite"
-}
-
-variable "ise_vm_vm_nic_name" {
-  type    = string
-  default = "ise-vm-nic"
-}
-
-
-# Private DNS zone related info
-
-variable "ise_vm_private_dns_zone_name" {
-  type    = string
-  default = "example.com"
-}
-
-variable "ise_vnet_dns_link_name" {
-  type    = string
-  default = "ise_vnet_dns_link"
-}
-
-variable "count_value" {
-  type    = number
-  default = 3
-}
-
-variable "ise_node_names" {
-  type    = list(string)
-  default = []
-}
-
-variable "appConIP" {
-  type    = list(string)
-  default = ["primary_ip", "secondary_ip"]
-}
-
-variable "ise_pan_node_names" {
-  type    = list(string)
-  default = ["ise-pan-primary", "ise-pan-secondary"]
-}
-
-variable "ise_psn_node_names" {
-  type = list(string)
+  description = "Enter the subnet name for Virtual Machine/ ISE nodes."
+  type        = string
+  default     = ""
 }
 
 variable "ise_func_subnet" {
-  type    = string
-  default = ""
+  description = "Mention the subnet name for Function App VNET integration, it is a service dedicated subnet delegated to service Microsoft.Web/serverFarms."
+  type        = string
+  default     = ""
 }
 
+
+######################################################################################
+############## Block for ISE Internal Loadbalancer related variables  ################
+######################################################################################
+
+variable "ise_lb_name" {
+  description = "Enter the Loadbalancer name"
+  type        = string
+  default     = ""
+}
+
+variable "ise_lb_sku" {
+  description = "Enter the Loadbalancer SKU type"
+  type        = string
+  default     = ""
+}
+
+variable "frontend_lb_ip_name" {
+  description = "Enter the Frontend IP address name"
+  type        = string
+  default     = ""
+}
+
+variable "frontend_ip_allocation" {
+  description = "Enter the Frontend Private IP address allocation type - Static or Dynamic"
+  type        = string
+  default     = ""
+}
+
+variable "ise_lb_backend_address_pool_name" {
+  description = "Enter the name for ISE Loadbalancer backend pool"
+  type        = string
+  default     = ""
+}
+
+
+######################################################################################
+##################    Block for Private DNS zone related variables   #################
+######################################################################################
+
+variable "ise_vm_private_dns_zone_name" {
+  description = "Enter the name for Private DNS zone"
+  type        = string
+  default     = ""
+}
+
+variable "ise_vnet_dns_link_name" {
+  description = "Enter the name for link between VNET and Private DNS zone"
+  type        = string
+  default     = ""
+}
+
+
+######################################################################################
+##############    Block for ISE App Configuration related variables   ################
+######################################################################################
+
+variable "ise_node_names" {
+  description = "Enter the desired number of ISE Virtual Machine hostname in a list separated by comma"
+  type        = list(string)
+  default     = []
+}
+
+variable "appConIP" {
+  description = "App Configuration Key variables for storing PAN primary and secondary IP address"
+  type        = list(string)
+  default     = ["primary_ip", "secondary_ip"]
+}
+
+variable "ise_pan_node_names" {
+  description = "Enter the PAN primary and secondary ISE Virtual Machine hostname in a list separated by comma"
+  type        = list(string)
+  default     = []
+}
+
+variable "ise_psn_node_names" {
+  description = "Enter the PSN ISE Virtual Machine hostname in a list separated by comma"
+  type        = list(string)
+}
+
+
 variable "appConfqdn" {
-  type    = list(string)
-  default = ["primary_fqdn", "secondary_fqdn"]
+  description = "App Configuration Key variables for storing PAN primary and secondary IP node Fully Qualified Domain Name(FQDN)"
+  type        = list(string)
+  default     = ["primary_fqdn", "secondary_fqdn"]
 }
 
 variable "username_password_key" {
-  type    = list(string)
-  default = ["admin_username", "admin_password"]
+  description = "App Configuration Key variable for storing ISE nodes Username and Password."
+  type        = list(string)
+  default     = ["admin_username", "admin_password"]
 }
 
 variable "ise_vm_adminuser_name" {
-  type    = string
-  default = ""
+  description = "App Configuration variables for storing ISE nodes Username."
+  type        = string
+  default     = ""
 }
 
 variable "password" {
-  type    = string
-  default = ""
+  description = "App Configuration variables for storing ISE nodes Password."
+  type        = string
+  default     = ""
 }
 
 variable "github_token" {

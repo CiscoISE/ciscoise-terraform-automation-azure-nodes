@@ -28,7 +28,7 @@ resource "azurerm_source_control_token" "external_repo_token" {
 }
 
 resource "azurerm_log_analytics_workspace" "ise_log_workspace" {
-  name                = "workspace-test"
+  name                = "workspace-ise"
   location            = var.location
   resource_group_name = var.ise_resource_group
   sku                 = "PerGB2018"

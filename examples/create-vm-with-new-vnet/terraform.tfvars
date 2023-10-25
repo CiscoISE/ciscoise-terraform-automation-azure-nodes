@@ -1,56 +1,67 @@
 # Azure Setup related variables:
 
-subscription       = "4af28428-fadd-42d1-ba1c-ba3eef6d4a6c" # Enter the Azure Subscription ID
-ise_resource_group = "Cisco_ISE_RG"                         # Enter the Azure Resource Group name
-location           = "East US"                              # Enter the region/location that supports Availability Zone - Check here: https://azure.microsoft.com/en-gb/explore/global-infrastructure/geographies/#geographies
+subscription       = "4af28428-fadd-42d1-ba1c-ba3eef6d4a6c" # Enter your Azure Subscription ID.
+ise_resource_group = "Cisco_ISE_RG"                         # Enter the Azure Resource Group name to be created for ISE setup.
+location           = "East US"                              # Enter the region/location to deploy the ISE setup that supports Availability Zone - Check here for Availability Zone support: https://azure.microsoft.com/en-gb/explore/global-infrastructure/geographies/#geographies
 
 
 # Azure Networking related variables:
 
-vnet_name    = "ise_vnet"    # Enter the Virtual Network name
-vnet_address = "10.0.0.0/16" # Enter the Virtual Network CIDR
-# Enter the Subnet CIDR for Private Subnets
+vnet_name    = "ise_vnet"    # Enter the Virtual Network(VNET) name to be created.
+vnet_address = "10.0.0.0/16" # Enter the Virtual Network(VNET) CIDR.
+
+# Enter the Subnet CIDR for Private Subnets to be created for ISE setup in a list separated by comma.
 private_subnet_cidrs = [
   "10.0.11.0/24",
   "10.0.12.0/24",
   "10.0.13.0/24"
 ]
-# Enter the Subnet CIDR for Public Subnets                                                        
+# Enter the Subnet CIDR for Public Subnets to be created for ISE setup in a list separated by comma.                                                        
 public_subnet_cidrs = [
   "10.0.1.0/24",
   "10.0.2.0/24",
   "10.0.3.0/24"
 ]
 
-ise_func_subnet = "ise_func_subnet" # Subnet name for Function App VNET integration, it is a service dedicated subnet delegated to service Microsoft.Web/serverFarms 
+
+# Subnet name for Function App VNET integration, it is a service dedicated subnet delegated to service Microsoft.Web/serverFarms 
+ise_func_subnet = "ise_func_subnet"
+
+# Enter the CIDR for Function App VNET integration subnet to be created, try to keep the IP address range smaller as it cannot be used to deploy other resources except Azure Function VNET integration.
 ise_func_subnet_cidr = [
   "10.0.14.0/26"
 ]
 
 # Azure ISE VM related variables:
 
-ise_vm_adminuser_name               = "iseadmin"      # Enter the ISE admin username / same is for SSH
-ise_vm_size_sku                     = "Standard_B2ms" # Set the VM size for PAN nodes (Supported VM size - Standard_D4s_v4, Standard_D8s_v4, Standard_F16s_v2, Standard_F32s_v2, Standard_D16s_v4, Standard_D32s_v4, Standard_D64s_v4)
-ise_vm_size_sku_psn                 = "Standard_B2ms" # Set the VM size for PSN nodes (Supported VM size - Standard_D4s_v4, Standard_D8s_v4, Standard_F16s_v2, Standard_F32s_v2, Standard_D16s_v4, Standard_D32s_v4, Standard_D64s_v4)
-ise_vm_vm_sa_caching                = "ReadWrite"
-ise_vm_vm_storage_account_type      = "Premium_LRS"
-admin_ssh_key_path                  = "isekey.pub"    # Change the key name if you have your own key named other than "isekey.pub"
-disk_size                           = 600             # Set the VM disk size (default is 300GB)
-ise_image_sku                       = "cisco-ise_3_2" # Available options - cisco-ise_3_2 or cisco-ise_3_3
-ise_image_version                   = "3.2.543"       # Available options - 3.2.543 or 3.3.430
-ise_offer                           = "cisco-ise-virtual"
-ise_plan_name                       = "cisco-ise_3_2" # Available options - cisco-ise_3_2 or cisco-ise_3_3
-ise_plan_product                    = "cisco-ise-virtual"
-ise_publisher                       = "cisco"
-marketplace_ise_image_agreement     = true # Set the value to true/false based on output of (az vm image terms show --publisher cisco --offer cisco-ise-virtual --plan cisco-ise_3_2)
+ise_vm_adminuser_name               = "iseadmin"          # Enter the ISE admin username / same is for SSH
+ise_vm_size_sku                     = "Standard_B2ms"     # Set the VM size for PAN nodes (Supported VM size - Standard_D4s_v4, Standard_D8s_v4, Standard_F16s_v2, Standard_F32s_v2, Standard_D16s_v4, Standard_D32s_v4, Standard_D64s_v4)
+ise_vm_size_sku_psn                 = "Standard_B2ms"     # Set the VM size for PSN nodes (Supported VM size - Standard_D4s_v4, Standard_D8s_v4, Standard_F16s_v2, Standard_F32s_v2, Standard_D16s_v4, Standard_D32s_v4, Standard_D64s_v4)
+ise_vm_vm_sa_caching                = "ReadWrite"         # OS disk cachine - (Do not change)
+ise_vm_vm_storage_account_type      = "Premium_LRS"       # OS disk type - (Do not change)
+admin_ssh_key_path                  = "isekey.pub"        # Change the key name if you have your own key named other than "isekey.pub"
+disk_size                           = 600                 # Set the VM disk size for PAN nodes (default is 300GB)
+disk_size_psn                       = 600                 # Set the VM disk size for PSN nodes (default is 300GB)
+ise_image_sku                       = "cisco-ise_3_2"     # Available options - cisco-ise_3_2 or cisco-ise_3_3
+ise_image_version                   = "3.2.543"           # Available options - 3.2.543 or 3.3.430
+ise_offer                           = "cisco-ise-virtual" # Azure marketplace ISE image offer - (Do not change)
+ise_plan_name                       = "cisco-ise_3_2"     # Available options - cisco-ise_3_2 or cisco-ise_3_3
+ise_plan_product                    = "cisco-ise-virtual" # Azure marketplace ISE image product - (Do not change)
+ise_publisher                       = "cisco"             # Azure marketplace ISE image publisher - (Do not change)
+marketplace_ise_image_agreement     = true                # Accept Azure Marketplace term so that the image can be used to create VMs. Set the value to true/false based on output of command (az vm image terms show --publisher cisco --offer cisco-ise-virtual --plan cisco-ise_3_2)
 marketplace_ise_image_agreement_psn = true
 
+
 # Enter the PAN and PSN Node hostnames:
+
+# Enter the PAN node hostname in a list separated by comma, currently only Two PAN nodes are supported in this ISE stack deployment.
 
 ise_pan_node_names = [
   "ise-pan-primary",
   "ise-pan-secondary"
 ]
+
+# Enter the PSN node hostname in a list separated by comma, currently only Eight PSN nodes are supported in this ISE stack deployment.
 
 ise_psn_node_names = [
   "ise-psn-node-1",
@@ -74,11 +85,11 @@ pxgrid_cloud      = "yes"             # Enter yes to enable pxGrid Cloud or no t
 
 # Loadbalancer and Function App related variable
 
-frontend_ip_allocation           = "Dynamic"                 # Enter the Frontend Private IP address allocation type - Static or Dynamic.
+frontend_ip_allocation           = "Dynamic"                 # Enter the Frontend Private IP address allocation type - Static or Dynamic. - (Do not change)
 frontend_lb_ip_name              = "ise_lb_PrivateIPAddress" # Enter the Frontend IP address name.
 ise_lb_backend_address_pool_name = "ise-BackendAddressPool"  # Enter the name for ISE Loadbalancer backend pool.
 ise_lb_name                      = "ise-int-loadbalancer"    # Enter the Loadbalancer name.
-ise_lb_sku                       = "Standard"                # Enter the Loadbalancer SKU.
+ise_lb_sku                       = "Standard"                # Enter the Loadbalancer SKU. - (Do not change)
 
 ise_vnet_dns_link_name = "ise_vnet_dns_link" # Enter the name for VNET link to associate with the Private DNS zone.
 
