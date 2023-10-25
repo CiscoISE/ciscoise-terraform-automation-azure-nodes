@@ -1,212 +1,195 @@
+######################################################################################
+#######################     Block to add Azure variables   ###########################
+######################################################################################
+
 variable "subscription" {
-  type    = string
-  default = ""
+  description = "Enter the Azure subscription ID"
+  type        = string
+  default     = ""
 }
 
 variable "ise_resource_group" {
-  type    = string
-  default = ""
+  description = "Enter the Resource Group name"
+  type        = string
+  default     = ""
 }
 
 variable "location" {
-  type    = string
-  default = "East US"
+  description = "Enter the region where you want to deploy resources"
+  type        = string
+  default     = ""
 }
 
+
+######################################################################################
+##################  Block to add Virtual Machine Network variables  ##################
+######################################################################################
+
 variable "vnet_name" {
-  type    = string
-  default = ""
+  description = "Enter the Virtual Network (VNET) name"
+  type        = string
+  default     = ""
 }
 
 variable "ise_lb_subnet_name" {
-  type    = string
-  default = ""
+  description = "Enter the subnet name for Loadbalancer"
+  type        = string
+  default     = ""
 }
 
 variable "ise_vm_subnet_name" {
-  type    = string
-  default = ""
-}
-
-variable "availability_zone" {
-  type    = string
-  default = null
-}
-
-variable "ise_lb_name" {
-  type    = string
-  default = "ise-int-loadbalancer"
-}
-
-variable "ise_lb_sku" {
-  type    = string
-  default = "Standard"
-}
-
-variable "frontend_lb_ip_name" {
-  type    = string
-  default = "ise_lb_PrivateIPAddress"
-}
-
-variable "frontend_ip_allocation" {
-  type    = string
-  default = "Dynamic"
-}
-
-variable "ise_lb_backend_address_pool_name" {
-  type    = string
-  default = "ise-BackendAddressPool"
+  description = "Enter the subnet name for Virtual Machine/ ISE nodes"
+  type        = string
+  default     = ""
 }
 
 
-/* Virtual Machine Scale Set variables  */
+######################################################################################
+##################   Block to add ISE Image related variables   ######################
+######################################################################################
+
 
 variable "ise_publisher" {
-  type    = string
-  default = "cisco"
+  description = "Enter ISE Image publisher name"
+  type        = string
+  default     = ""
 }
 
 variable "ise_offer" {
-  type    = string
-  default = "cisco-ise-virtual"
+  description = "Enter the ISE Image offer name"
+  type        = string
+  default     = ""
 }
 
 variable "ise_plan_name" {
-  type    = string
-  default = "cisco-ise_3_2"
+  description = "Enter the ISE Image billing plan name"
+  type        = string
+  default     = ""
 }
 
 variable "ise_plan_product" {
-  type    = string
-  default = "cisco-ise-virtual"
+  description = "Enter the ISE Image plan's product name, required for Virtual Machine Image plan"
+  type        = string
+  default     = ""
 }
 
 variable "ise_image_sku" {
-  type    = string
-  default = "cisco-ise_3_2"
+  description = "Enter ISE Image sku name"
+  type        = string
+  default     = ""
 }
 
 variable "ise_image_version" {
-  type    = string
-  default = "3.2.543"
-}
-
-variable "ise_vm_scaleset_name" {
-  type    = string
-  default = "ise-vm"
-}
-
-variable "ise_vm_size_sku" {
-  type    = string
-  default = "Standard_B2ms"
-}
-
-variable "ise_vm_vm_count" {
-  type    = number
-  default = 1
-}
-
-variable "ise_vm_adminuser_name" {
-  type    = string
-  default = "iseadmin"
-}
-
-variable "ise_vm_vm_storage_account_type" {
-  type    = string
-  default = "Premium_LRS"
-}
-
-variable "disk_size" {
-  type    = number
-  default = 300
-}
-
-variable "ise_vm_vm_sa_caching" {
-  type    = string
-  default = "ReadWrite"
-}
-
-variable "ise_vm_vm_nic_name" {
-  type    = string
-  default = "ise-vm-nic"
-}
-
-
-# Private DNS zone related info
-
-variable "ise_vm_private_dns_zone_name" {
-  type    = string
-  default = ""
-}
-
-variable "ise_vnet_dns_link_name" {
-  type    = string
-  default = "ise_vnet_dns_link"
-}
-
-variable "count_value" {
-  type    = number
-  default = 3
-}
-
-variable "ise_node_names" {
-  type    = list(string)
-  default = []
-}
-
-# Userdata variables
-
-variable "primarynameserver" {
-  type    = string
-  default = "168.63.129.16"
-}
-
-variable "dnsdomain" {
-  type    = string
-  default = "example.com"
-}
-
-variable "ntpserver" {
-  type    = string
-  default = "time.google.com"
-}
-
-variable "timezone" {
-  type    = string
-  default = "UTC"
-}
-
-variable "password" {
-  type    = string
-  default = "C!sc0Ind1@"
-}
-
-variable "ersapi" {
-  type    = string
-  default = "yes"
-}
-
-variable "openapi" {
-  type    = string
-  default = "yes"
-}
-
-variable "pxGrid" {
-  type    = string
-  default = "yes"
-}
-
-variable "pxgrid_cloud" {
-  type    = string
-  default = "yes"
+  description = "Enter the ISE Image sku version"
+  type        = string
+  default     = ""
 }
 
 variable "marketplace_ise_image_agreement" {
-  type    = bool
-  default = false
+  description = "Accept Azure Marketplace term so that the image can be used to create VMs."
+  type        = bool
+}
+
+
+######################################################################################
+#############   Block to add ISE Virtual Machine  related variables   ################
+######################################################################################
+
+variable "ise_node_names" {
+  description = "Enter the desired number of ISE Virtual Machine hostname in a list separated by comma"
+  type        = list(string)
+  default     = []
+}
+
+variable "ise_vm_size_sku" {
+  description = "Enter the Virtual Machine size sku"
+  type        = string
+  default     = ""
+}
+
+variable "ise_vm_adminuser_name" {
+  description = "Enter the ISE admin username"
+  type        = string
+  default     = ""
 }
 
 variable "admin_ssh_public_key" {
   description = "SSH public key for VM access"
   type        = string
+}
+
+variable "ise_vm_vm_storage_account_type" {
+  description = "Virtual Machine disk storage type"
+  type        = string
+  default     = ""
+}
+
+variable "disk_size" {
+  description = "Enter the Virtual Machine disk size"
+  type        = number
+}
+
+variable "ise_vm_vm_sa_caching" {
+  description = "Cache setting is set to Read/Write for OS disk"
+  type        = string
+  default     = ""
+}
+
+
+######################################################################################
+#############   Block to add ISE Virtual Machine Userdata variables   ################
+######################################################################################
+
+variable "primarynameserver" {
+  description = "Enter the IP address of the primary name server. Only IPv4 addresses are supported"
+  type        = string
+  default     = ""
+}
+
+variable "dnsdomain" {
+  description = "Enter the FQDN of the DNS domain. The entry can contain ASCII characters, numerals, hyphens (-), and periods (.)."
+  type        = string
+  default     = ""
+}
+
+variable "ntpserver" {
+  description = "Enter the IPv4 address or FQDN of the NTP server that must be used for synchronization, for example, time.nist.gov."
+  type        = string
+  default     = ""
+}
+
+variable "timezone" {
+  description = "Enter a timezone, for example, Etc/UTC. We recommend that you set all the Cisco ISE nodes to the Coordinated Universal Time (UTC) timezone"
+  type        = string
+  default     = ""
+}
+
+variable "password" {
+  description = "Configure a password for GUI-based login to Cisco ISE. The password that you enter must comply with the Cisco ISE password policy. The password must contain 6 to 25 characters and include at least one numeral, one uppercase letter, and one lowercase letter. The password cannot be the same as the username or its reverse (iseadmin or nimdaesi), cisco, or ocsic. The allowed special characters are @~*!,+=_-."
+  type        = string
+  default     = ""
+}
+
+variable "ersapi" {
+  description = "Enter yes to enable ERS, or no to disallow ERS."
+  type        = string
+  default     = ""
+}
+
+variable "openapi" {
+  description = "Enter yes to enable OpenAPI, or no to disallow OpenAPI."
+  type        = string
+  default     = ""
+}
+
+variable "pxGrid" {
+  description = "Enter yes to enable pxGrid, or no to disallow pxGrid"
+  type        = string
+  default     = ""
+}
+
+variable "pxgrid_cloud" {
+  description = "Enter yes to enable pxGrid Cloud or no to disallow pxGrid Cloud. To enable pxGrid Cloud, you must enable pxGrid. If you disallow pxGrid, but enable pxGrid Cloud, pxGrid Cloud services are not enabled on launch."
+  type        = string
+  default     = ""
 }

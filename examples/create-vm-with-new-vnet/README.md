@@ -1,11 +1,13 @@
 ## Terraform variables
 
-The module uses below inputs. Update the terraform input variables in `terraform.tfvars` file as per requirement
+The module uses below inputs. Please update the terraform input variables ONLY in `terraform.tfvars` file as per requirement. Please do not update variables.tf.
 
 
 ### Generating SSH-Key pair
 
 For SSH access to ISE Virtual Machines, create a SSH keypair using below command and update the variable `admin_ssh_key_path` value with  SSH public key name in `terraform.tfvars` file.
+
+`NOTE:` Please make sure you are generating SSH key-pair at path `examples/create-vm-with-new-vnet`
 
 ```
 ssh-keygen -t rsa -m PEM -b 4096 -C "azureuser@myserver" -f isekey
@@ -17,17 +19,28 @@ Guide on how to create SSH keypair - https://learn.microsoft.com/en-us/azure/vir
 
 ### Update ISE image subscription agreement variable
 
-- Check for the Azure ISE VM Image subscription Terms & Conditions status for specific version. Example:- Checking for ISE version cisco-ise_3_2 
+- Check for the Azure ISE VM Image subscription Terms & Conditions status for specific version. Need to accept Azure Marketplace term so that the image can be used to create VMs. Example:- Checking for ISE version cisco-ise_3_2 
   
 `NOTE:` 
  - If the output value is "accepted": false, then set the variable `marketplace_ise_image_agreement` to `false` in `terraform.tfvars` .
+    - This means the image TnC are are not accepted. We need to set the variable as 'false' to ensure it is accepted by the module.
  - If the output value is "accepted": true, then set the variable  `marketplace_ise_image_agreement` to `true` in `terraform.tfvars` . 
-  
+    - This means the image TnC are are accepted. We need to set the variable as 'true' and we good to go.
 ```
 az vm image terms show --publisher cisco --offer cisco-ise-virtual --plan cisco-ise_3_2
 ```  
 
+After updating the `terraform.tfvars` file, run the below commands to apply the changes and bring Up the ISE stack:
 
+```
+terraform init --upgrade
+terraform plan
+terraform apply
+```
+
+Type 'yes' when prompted after running terraform apply
+
+After setting up ISE infra using terraform, it will take 45-60 minutes for the stack to deploy and ISE application to come up.
 
 ## Inputs
 
