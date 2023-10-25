@@ -63,7 +63,7 @@ git clone https://github3.cisco.com/techops-operation/ise_launch_template-terraf
 
 Choose one of the following options to setup ISE infra
 
-1. [Deploy using an existing VNET](./examples/create-vm-with-existing-vnet/)
+1. Deploy using an existing VNET
   
 To deploy using an existing VNET
 
@@ -73,11 +73,11 @@ cd examples/create-vm-with-existing-vnet
 
 Here, we are using Azure CLI for authentication and configure Terraform to use a specific `Subscription` by specifying it's value in `terraform.tfvars` file for variable named as `subscription`.
 
-  Refer [create-vm-with-existing-vnet README](./examples/create-vm-with-existing-vnet/README.md) and update the variables in `terraform.tfvars`.
+  Refer [create-vm-with-existing-vnet README](./examples/create-vm-with-existing-vnet/README.md) and update the variables in `terraform.tfvars` and follow the steps.
 
 
 
-2. [Deploy using a new VNET](./examples/create-vm-with-new-vnet/)
+2. Deploy using a new VNET
 
 To deploy using a new VNET
 
@@ -87,18 +87,4 @@ cd examples/create-vm-with-new-vnet
 
 Here, we are using Azure CLI for authentication and configure Terraform to use a specific `Subscription` by specifying it's value in `terraform.tfvars` file for variable named as `subscription`.
 
-  Refer [create-vm-with-new-vnet README](./examples/create-vm-with-new-vnet/README.md) and update the variables in `terraform.tfvars`.
-
-
-
-After updating the `terraform.tfvars` file, run the below commands:
-
-```
-terraform init --upgrade
-terraform plan
-terraform apply
-```
-
-Type 'yes' when prompted after running terraform apply
-
-After setting up ISE infra using terraform, it will take 45-60 minutes for the stack to deploy and ISE application to come up.
+  Refer [create-vm-with-new-vnet README](./examples/create-vm-with-new-vnet/README.md) and update the variables in `terraform.tfvars` and follow the steps.
