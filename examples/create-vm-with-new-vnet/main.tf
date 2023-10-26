@@ -8,6 +8,7 @@ module "ise_vnet" {
   private_subnet_cidrs = var.private_subnet_cidrs
   public_subnet_cidrs  = var.public_subnet_cidrs
   ise_func_subnet_cidr = var.ise_func_subnet_cidr
+  ise_func_subnet      = var.ise_func_subnet
 }
 
 module "loadbalancer_dns" {
