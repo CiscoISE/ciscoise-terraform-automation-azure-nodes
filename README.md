@@ -17,7 +17,7 @@ This project runs terraform module to setup ISE infrastructure on Azure Cloud Pl
 
 
   
-## Configuring and Authenticating using Azure CLI
+## Configuration and Authentication using Azure CLI
 
 To configure and allow access to Azure account, we need a user having atleast `Contributor` level access . Run the below command to get Azure access using CLI. It will prompt you to login through web browser
 ```
@@ -63,7 +63,7 @@ git clone https://github3.cisco.com/techops-operation/ise_launch_template-terraf
 
 Choose one of the following options to setup ISE infra
 
-1. Deploy using an existing VNET
+### 1. Deploy using an existing VNET
   
 To deploy using an existing VNET
 
@@ -77,7 +77,7 @@ Here, we are using Azure CLI for authentication and configure Terraform to use a
 
 
 
-2. Deploy using a new VNET
+### 2. Deploy using a new VNET
 
 To deploy using a new VNET
 
