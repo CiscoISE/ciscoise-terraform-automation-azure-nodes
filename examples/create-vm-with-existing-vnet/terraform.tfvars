@@ -72,4 +72,4 @@ ise_lb_sku                       = "Standard"                # Enter the Loadbal
 ise_vnet_dns_link_name = "ise_vnet_dns_link" # Enter the name for VNET link to associate with the Private DNS zone.
 
 github_repo  = "https://github.com/ro6it/ise-auto-setup"
-github_token = "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"
+github_token = "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"
