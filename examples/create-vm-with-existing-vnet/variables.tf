@@ -290,3 +290,56 @@ variable "pxgrid_cloud" {
   type        = string
   default     = ""
 }
+
+
+
+variable "virtual_machines_pan" {
+  type = map(object({
+    size     = string
+    storage  = number
+    services = optional(string)
+    roles    = optional(string)
+  }))
+  default = {
+    ise-pan-primary   = { size = "Standard_B2ms", storage = 400 } # NOTE: Don't pass the values for services and roles in Primary Node.
+    ise-pan-secondary = { size = "Standard_B2ms", storage = 500, services = "Session, Profiler, pxGrid", roles = "SecondaryAdmin" }
+  }
+
+  validation {
+    condition     = length([for vm in values(var.virtual_machines_pan) : vm.roles if vm.roles != null && (vm.roles != "SecondaryMonitoring" && vm.roles != "SecondaryDedicatedMonitoring" && vm.roles != "SecondaryAdmin")]) == 0
+    error_message = "Roles can only accept 'SecondaryMonitoring' and 'SecondaryDedicatedMonitoring' values."
+  }
+
+}
+
+variable "virtual_machines_psn" {
+  type = map(object({
+    size     = string
+    storage  = number
+    services = optional(string, "Session, Profiler") #string
+    roles    = optional(string)
+  }))
+  default = {
+    ise-psn-node-1 = { size = "Standard_D4s_v4", storage = 500, services = "Session, Profiler, SXP, DeviceAdmin", roles = "SecondaryMonitoring" }
+    ise-psn-node-2 = { size = "Standard_D4s_v4", storage = 550, services = "PassiveIdentity, pxGrid, pxGridCloud" }
+    # ise-psn-node-3 = { size = "Standard_D4s_v4", storage = 600, services = "Session, Profiler"}
+    ise-psn-node-3    = { size = "Standard_D4s_v4", storage = 600 }
+    ise-psn-node-test = { size = "Standard_D4s_v4", storage = 600 }
+
+  }
+
+  validation {
+    condition     = length([for vm in values(var.virtual_machines_psn) : vm.roles if vm.roles != null && (vm.roles != "SecondaryMonitoring" && vm.roles != "SecondaryDedicatedMonitoring")]) == 0
+    error_message = "Roles can only accept 'SecondaryMonitoring' and 'SecondaryDedicatedMonitoring' values."
+  }
+
+  validation {
+    condition = length(flatten([for vm in values(var.virtual_machines_psn) :
+      [for service in coalesce(split(", ", vm.services), []) :
+        service if service != "Session" && service != "Profiler" && service != "TC-NAC" &&
+        service != "SXP" && service != "DeviceAdmin" && service != "PassiveIdentity" &&
+    service != "pxGrid" && service != "pxGridCloud"]])) == 0
+    error_message = "Services can only accept values from Session, Profiler, TC-NAC, SXP, DeviceAdmin, PassiveIdentity, pxGrid, pxGridCloud."
+  }
+
+}

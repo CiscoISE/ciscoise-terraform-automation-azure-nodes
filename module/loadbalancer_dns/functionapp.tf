@@ -10,7 +10,7 @@ resource "azurerm_storage_account" "ise-app-storage" {
   resource_group_name      = var.ise_resource_group
   location                 = var.location
   account_tier             = "Standard"
-  account_replication_type = "LRS"
+  account_replication_type = "GRS"
 }
 
 resource "random_string" "function_app_suffix" {
@@ -128,7 +128,7 @@ resource "azurerm_app_configuration_key" "kv_psn_fqdn" {
   configuration_store_id = azurerm_app_configuration.ise_appconf.id
   for_each               = local.combined_psn_kv_fqdn
   key                    = "${each.key}-fqdn"
-  label                  = "psn"
+  label                  = "psn_fqdn"
   value                  = trimsuffix(azurerm_private_dns_a_record.ise_vm_dns_record[each.value].fqdn, ".")
 
 }
@@ -149,4 +149,48 @@ resource "azurerm_app_configuration_key" "function_url" {
   key                    = "function_url"
   value                  = "https://${azurerm_linux_function_app.ise-function-app.name}.azurewebsites.net/api/HttpTrigger1"
 
+}
+
+
+# PSN services paramater - Testing
+
+resource "azurerm_app_configuration_key" "kv_psn_services" {
+  for_each               = var.virtual_machines_psn
+  configuration_store_id = azurerm_app_configuration.ise_appconf.id
+  key                    = "${each.key}-services"
+  label                  = "psn_services"
+  value                  = each.value.services
+}
+
+# PSN roles parameter
+
+resource "azurerm_app_configuration_key" "kv_psn_roles" {
+  for_each               = var.virtual_machines_psn
+  configuration_store_id = azurerm_app_configuration.ise_appconf.id
+  key                    = "${each.key}-roles"
+  label                  = "psn_roles"
+  value                  = each.value.roles
+}
+
+
+# PAN roles parameter
+
+resource "azurerm_app_configuration_key" "kv_pan_roles" {
+  for_each               = var.virtual_machines_pan
+  configuration_store_id = azurerm_app_configuration.ise_appconf.id
+  key                    = "${each.key}-roles"
+  label                  = "pan_roles"
+  value                  = each.value.roles
+}
+
+
+# PAN services parameter
+
+
+resource "azurerm_app_configuration_key" "kv_pan_services" {
+  for_each               = var.virtual_machines_pan
+  configuration_store_id = azurerm_app_configuration.ise_appconf.id
+  key                    = "${each.key}-services"
+  label                  = "pan_services"
+  value                  = each.value.services
 }

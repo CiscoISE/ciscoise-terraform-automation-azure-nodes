@@ -165,3 +165,21 @@ variable "github_repo" {
   type        = string
   default     = ""
 }
+
+variable "virtual_machines_pan" {
+  type = map(object({
+    size     = string
+    storage  = number
+    services = optional(string)
+    roles    = optional(string)
+  }))
+}
+
+variable "virtual_machines_psn" {
+  type = map(object({
+    size     = string
+    storage  = number
+    services = optional(string, "Session, Profiler")
+    roles    = optional(string)
+  }))
+}
