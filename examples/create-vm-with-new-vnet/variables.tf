@@ -311,7 +311,7 @@ variable "virtual_machines_pan" {
     size     = string
     storage  = number
     services = optional(string)
-    roles    = optional(string)
+    roles    = optional(string, "SecondaryAdmin")
   }))
   default = {
     ise-pan-primary   = { size = "Standard_B2ms", storage = 400 } # NOTE: Don't pass the values for services and roles in Primary Node.
@@ -319,8 +319,9 @@ variable "virtual_machines_pan" {
   }
 
   validation {
-    condition     = length([for vm in values(var.virtual_machines_pan) : vm.roles if vm.roles != null && (vm.roles != "SecondaryMonitoring" && vm.roles != "SecondaryAdmin")]) == 0
-    error_message = "Roles can only accept 'SecondaryMonitoring' and 'SecondaryAdmin' values."
+    #condition     = length([for vm in values(var.virtual_machines_pan) : vm.roles if vm.roles != null && (vm.roles != "SecondaryMonitoring" && vm.roles != "SecondaryAdmin" && vm.roles != "PrimaryMonitoring")]) == 0
+    condition     = length(flatten([for vm in values(var.virtual_machines_pan) : [for role in split(", ", vm.roles) : role if role != "SecondaryAdmin" && role != "SecondaryMonitoring" && role != "PrimaryMonitoring"]])) == 0
+    error_message = "Roles can only accept 'PrimaryMonitoring or SecondaryMonitoring' and 'SecondaryAdmin' values."
   }
 
 }
@@ -333,8 +334,8 @@ variable "virtual_machines_psn" {
     roles    = optional(string)
   }))
   default = {
-    ise-psn-node-1 = { size = "Standard_D4s_v4", storage = 500, services = "Session, Profiler, SXP, DeviceAdmin", roles = "SecondaryDedicatedMonitoring" }
-    ise-psn-node-2 = { size = "Standard_D4s_v4", storage = 550, services = "PassiveIdentity, pxGrid, pxGridCloud" }
+    ise-psn-node-1 = { size = "Standard_D4s_v4", storage = 500, services = "Session, Profiler, SXP, DeviceAdmin" }
+    ise-psn-node-2 = { size = "Standard_D4s_v4", storage = 550, services = "PassiveIdentity, pxGrid, pxGridCloud", roles = "PrimaryDedicatedMonitoring" }
     # ise-psn-node-3 = { size = "Standard_D4s_v4", storage = 600, services = "Session, Profiler"}
     ise-psn-node-3    = { size = "Standard_D4s_v4", storage = 600 }
     ise-psn-node-test = { size = "Standard_D4s_v4", storage = 600 }
@@ -342,8 +343,8 @@ variable "virtual_machines_psn" {
   }
 
   validation {
-    condition     = length([for vm in values(var.virtual_machines_psn) : vm.roles if vm.roles != null && (vm.roles != "SecondaryMonitoring" && vm.roles != "SecondaryDedicatedMonitoring")]) == 0
-    error_message = "Roles can only accept either'SecondaryMonitoring' or 'SecondaryDedicatedMonitoring' value."
+    condition     = length([for vm in values(var.virtual_machines_psn) : vm.roles if vm.roles != null && (vm.roles != "SecondaryMonitoring" && vm.roles != "SecondaryDedicatedMonitoring" && vm.roles != "PrimaryMonitoring" && vm.roles != "PrimaryDedicatedMonitoring")]) == 0
+    error_message = "Roles can only accept one of the value from 'SecondaryMonitoring', 'SecondaryDedicatedMonitoring', 'PrimaryDedicatedMonitoring', 'PrimaryMonitoring'."
   }
 
   validation {
