@@ -115,7 +115,6 @@ virtual_machines_pan = {
 }
 
 
-
 # Enter the PSN node hostname as key and other allowed attributes in the values - (Allowed attribues size, storage, services, roles) comma space separated, currently only Eight PSN nodes are supported in this ISE stack deployment.
 
 /*

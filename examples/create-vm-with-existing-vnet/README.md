@@ -78,7 +78,7 @@ After setting up ISE infra using terraform, it will take 45-60 minutes for the s
 | <a name="input_ntpserver"></a> [ntpserver](#input\_ntpserver) | Enter the IPv4 address or FQDN of the NTP server that must be used for synchronization, for example, time.nist.gov. | `string` | `"time.google.com"` |
 | <a name="input_openapi"></a> [openapi](#input\_openapi) | Enter yes to enable OpenAPI, or no to disallow OpenAPI. | `string` | `"yes"` |
 | <a name="input_password"></a> [password](#input\_password) | Configure a password for GUI-based login to Cisco ISE. The password that you enter must comply with the Cisco ISE password policy. The password must contain 6 to 25 characters and include at least one numeral, one uppercase letter, and one lowercase letter. The password cannot be the same as the username or its reverse (iseadmin or nimdaesi), cisco, or ocsic. The allowed special characters are @~*!,+=\_-. | `string` | `"C!sc0Ind1@"` |
-| <a name="input_primarynameserver"></a> [primarynameserver](#input\_primarynameserver) | Enter the IP address of the primary name server. Only IPv4 addresses are supported | `string` | `"168.63.129.16"` |
+| <a name="input_primarynameserver"></a> [primarynameserver](#input\_primarynameserver) | Enter the IP address of the Primary name server. Only IPv4 addresses are supported | `string` | `"168.63.129.16"` |
 | <a name="input_pxGrid"></a> [pxGrid](#input\_pxGrid) | Enter yes to enable pxGrid, or no to disallow pxGrid | `string` | `"yes"` |
 | <a name="input_pxgrid_cloud"></a> [pxgrid\_cloud](#input\_pxgrid\_cloud) | Enter yes to enable pxGrid Cloud or no to disallow pxGrid Cloud. To enable pxGrid Cloud, you must enable pxGrid. If you disallow pxGrid, but enable pxGrid Cloud, pxGrid Cloud services are not enabled on launch. | `string` | `"yes"` |
 | <a name="input_subscription"></a> [subscription](#input\_subscription) | Add the Azure subscription ID | `string` | `"4af28428-fadd-42d1-ba1c-ba3eef6d4a6c"` |
@@ -86,8 +86,6 @@ After setting up ISE infra using terraform, it will take 45-60 minutes for the s
 | <a name="input_virtual_machines_pan"></a> [virtual\_machines\_pan](#input\_virtual\_machines\_pan) | Specify the configuration for pan instance. It should follow below format where key is the hostname and values are instance attributes.<br>{<br>  hostname = {<br>    size = "<vm\_size>",<br>    storage = "<storage\_size>",<br>    services =  "<service\_1>,<service\_2>",<br>    roles = "<role\_1>,<role\_2>"<br>  }<br>} | <pre>map(object({<br>    size     = string<br>    storage  = number<br>    services = optional(string)<br>    roles    = optional(string, "SecondaryAdmin")<br>  }))</pre> | n/a |
 | <a name="input_virtual_machines_psn"></a> [virtual\_machines\_psn](#input\_virtual\_machines\_psn) | Specify the configuration for PSN instance. It should follow below format where key is the hostname and values are instance attributes.<br>{<br>  hostname = {<br>    size = "<vm\_size>",<br>    storage = "<storage\_size>",<br>    services =  "<service\_1>,<service\_2>",<br>    roles = "<MnT\_role>"<br>  }<br>} | <pre>map(object({<br>    size     = string<br>    storage  = number<br>    services = optional(string, "Session, Profiler") #string<br>    roles    = optional(string)<br>  }))</pre> | n/a |
 | <a name="input_vnet_name"></a> [vnet\_name](#input\_vnet\_name) | Mention the Virtual Network (VNET) name | `string` | `"ps-prod-vnet"` |
-
-
 
 
 ## Outputs

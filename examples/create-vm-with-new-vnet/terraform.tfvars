@@ -78,7 +78,6 @@ github_repo  = "https://github.com/ro6it/ise-auto-setup"
 github_token = "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"
 
 
-
 ###############################################################
 ################# Block to Update ISE VM Details ##############
 ###############################################################
