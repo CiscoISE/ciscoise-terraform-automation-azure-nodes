@@ -119,27 +119,27 @@ variable "marketplace_ise_image_agreement_psn" {
 ################ Block for ISE VirtualMachine related variables  #####################
 ######################################################################################
 
-variable "ise_vm_size_sku" {
-  description = "Mention the Virtual Machine size as per the ISE recommendations - https://www.cisco.com/c/en/us/td/docs/security/ise/ISE_on_Cloud/b_ISEonCloud/m_ISEonAzureServices.html "
-  type        = string
-  default     = ""
-}
+# variable "ise_vm_size_sku" {
+#   description = "Mention the Virtual Machine size as per the ISE recommendations - https://www.cisco.com/c/en/us/td/docs/security/ise/ISE_on_Cloud/b_ISEonCloud/m_ISEonAzureServices.html "
+#   type        = string
+#   default     = ""
+# }
 
-variable "ise_vm_size_sku_psn" {
-  description = "Mention the Virtual Machine size as per the ISE recommendations - https://www.cisco.com/c/en/us/td/docs/security/ise/ISE_on_Cloud/b_ISEonCloud/m_ISEonAzureServices.html "
-  type        = string
-  default     = ""
-}
+# variable "ise_vm_size_sku_psn" {
+#   description = "Mention the Virtual Machine size as per the ISE recommendations - https://www.cisco.com/c/en/us/td/docs/security/ise/ISE_on_Cloud/b_ISEonCloud/m_ISEonAzureServices.html "
+#   type        = string
+#   default     = ""
+# }
 
-variable "disk_size" {
-  description = "ISE Virtual Machine disk size"
-  type        = number
-}
+# variable "disk_size" {
+#   description = "ISE Virtual Machine disk size"
+#   type        = number
+# }
 
-variable "disk_size_psn" {
-  description = "ISE Virtual Machine disk size"
-  type        = number
-}
+# variable "disk_size_psn" {
+#   description = "ISE Virtual Machine disk size"
+#   type        = number
+# }
 
 variable "ise_vm_adminuser_name" {
   description = "Enter the ISE admin username"
@@ -302,4 +302,80 @@ variable "pxgrid_cloud" {
   description = "Enter yes to enable pxGrid Cloud or no to disallow pxGrid Cloud. To enable pxGrid Cloud, you must enable pxGrid. If you disallow pxGrid, but enable pxGrid Cloud, pxGrid Cloud services are not enabled on launch."
   type        = string
   default     = ""
+}
+
+################################################# Testing Variables ##################################################
+
+variable "virtual_machines_pan" {
+  description = <<-EOT
+  Specify the configuration for pan instance. It should follow below format where key is the hostname and values are instance attributes.
+  {
+    <hostname> = {
+      size = "<vm_size>",
+      storage = "<storage_size>",
+      services =  "<service_1>,<service_2>",
+      roles = "<role_1>,<role_2>"
+    }
+  }
+  EOT
+  type = map(object({
+    size     = string
+    storage  = number
+    services = optional(string)
+    roles    = optional(string, "SecondaryAdmin")
+  }))
+  # default = {
+  #   ise-pan-primary   = { size = "Standard_B2ms", storage = 400 } # NOTE: Don't pass the values for services and roles in Primary Node.
+  #   ise-pan-secondary = { size = "Standard_B2ms", storage = 500, services = "Session, Profiler, pxGrid", roles = "SecondaryAdmin" }
+  # }
+
+  validation {
+    #condition     = length([for vm in values(var.virtual_machines_pan) : vm.roles if vm.roles != null && (vm.roles != "SecondaryMonitoring" && vm.roles != "SecondaryAdmin" && vm.roles != "PrimaryMonitoring")]) == 0
+    condition     = length(flatten([for vm in values(var.virtual_machines_pan) : [for role in split(", ", vm.roles) : role if role != "SecondaryAdmin" && role != "SecondaryMonitoring" && role != "PrimaryMonitoring"]])) == 0
+    error_message = "Roles can only accept 'PrimaryMonitoring or SecondaryMonitoring' and 'SecondaryAdmin' values."
+  }
+
+}
+
+variable "virtual_machines_psn" {
+  description = <<-EOT
+  Specify the configuration for PSN instance. It should follow below format where key is the hostname and values are instance attributes.
+  {
+    <hostname> = {
+      size = "<vm_size>",
+      storage = "<storage_size>",
+      services =  "<service_1>,<service_2>",
+      roles = "<MnT_role>"
+    }
+  }
+  EOT
+  type = map(object({
+    size     = string
+    storage  = number
+    services = optional(string, "Session, Profiler") #string
+    roles    = optional(string)
+  }))
+  # default = {
+  #   ise-psn-node-1 = { size = "Standard_D4s_v4", storage = 500, services = "Session, Profiler, SXP, DeviceAdmin" }
+  #   ise-psn-node-2 = { size = "Standard_D4s_v4", storage = 550, services = "PassiveIdentity, pxGrid, pxGridCloud", roles = "PrimaryDedicatedMonitoring" }
+  #   # ise-psn-node-3 = { size = "Standard_D4s_v4", storage = 600, services = "Session, Profiler"}
+  #   ise-psn-node-3    = { size = "Standard_D4s_v4", storage = 600 }
+  #   ise-psn-node-test = { size = "Standard_D4s_v4", storage = 600 }
+
+  # }
+
+  validation {
+    condition     = length([for vm in values(var.virtual_machines_psn) : vm.roles if vm.roles != null && (vm.roles != "SecondaryMonitoring" && vm.roles != "SecondaryDedicatedMonitoring" && vm.roles != "PrimaryMonitoring" && vm.roles != "PrimaryDedicatedMonitoring")]) == 0
+    error_message = "Roles can only accept one of the value from 'SecondaryMonitoring', 'SecondaryDedicatedMonitoring', 'PrimaryDedicatedMonitoring', 'PrimaryMonitoring'."
+  }
+
+  validation {
+    condition = length(flatten([for vm in values(var.virtual_machines_psn) :
+      [for service in coalesce(split(", ", vm.services), []) :
+        service if service != "Session" && service != "Profiler" && service != "TC-NAC" &&
+        service != "SXP" && service != "DeviceAdmin" && service != "PassiveIdentity" &&
+    service != "pxGrid" && service != "pxGridCloud"]])) == 0
+    error_message = "Services can only accept values from Session, Profiler, TC-NAC, SXP, DeviceAdmin, PassiveIdentity, pxGrid, pxGridCloud."
+  }
+
 }

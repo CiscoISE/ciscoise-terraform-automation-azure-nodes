@@ -4,6 +4,10 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "3.69.0"
     }
+    assert = {
+      source  = "bwoznicki/assert"
+      version = "0.0.1"
+    }
   }
   required_version = "~>1.5.0"
 }
