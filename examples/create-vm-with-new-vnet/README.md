@@ -1,7 +1,8 @@
 ## Terraform variables
 
-The module uses below inputs. Please update the terraform input variables ONLY in `terraform.tfvars` file as per requirement. Please do not update variables.tf.
+The module uses below inputs. 
 
+:warning: **Please do not make any changes to the variables.tf file. It is recommended to only update the terraform input variables in terraform.tfvars file**
 
 ### Generating SSH-Key pair
 
