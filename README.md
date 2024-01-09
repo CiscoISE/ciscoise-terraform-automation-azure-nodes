@@ -40,7 +40,7 @@ To sign in, use a web browser to open the page https://microsoft.com/devicelogin
 1. Setup SSH for git, follow this documentation - [How to setup SSH for git](https://www.warp.dev/terminus/git-clone-ssh) 
 2. Create a SSH key pair for ISE Virtual Machine - [Create SSH key pair](https://learn.microsoft.com/en-us/azure/virtual-machines/linux/create-ssh-keys-detailed)
 3. Check ISE image subscription status for Azure marketplace agreement acceptance and ISE VM image version details - [Refer here](./docs/azure-cli-commands.md)
-4. ( `IMPORTANT` )- This ISE setup is being deployed in the high availability so please make sure the `region` selected to deploy the ISE VM supports the `Availability zones`. [Regions that support availability zone](https://azure.microsoft.com/en-gb/explore/global-infrastructure/geographies/#geographies)
+4. ( :exclamation: `IMPORTANT` )- This ISE setup is being deployed in the high availability so please make sure the `region` selected to deploy the ISE VM supports the `Availability zones`. [Regions that support availability zone](https://azure.microsoft.com/en-gb/explore/global-infrastructure/geographies/#geographies)
 5. For existing VNET setup: 3 Private Subnets - (2 subnets for deploying VM and Loadbalancer and, 1 - subnet delegated to service Microsoft.Web/serverFarms  for Function App VNET integration)
   
    

@@ -20,16 +20,18 @@ Guide on how to create SSH keypair - https://learn.microsoft.com/en-us/azure/vir
 
 ### Update ISE image subscription agreement variable
 
-- Check for the Azure ISE VM Image subscription Terms & Conditions status for specific version. Need to accept Azure Marketplace term so that the image can be used to create VMs. Example:- Checking for ISE version cisco-ise_3_2 
-  
-`NOTE:` 
- - If the output value is "accepted": false, then set the variable `marketplace_ise_image_agreement` to `false` in `terraform.tfvars` .
-    - This means the image TnC are are not accepted. We need to set the variable as 'false' to ensure it is accepted by the module.
- - If the output value is "accepted": true, then set the variable  `marketplace_ise_image_agreement` to `true` in `terraform.tfvars` . 
-    - This means the image TnC are are accepted. We need to set the variable as 'true' and we good to go.
+- Check for the Azure ISE VM Image subscription Terms & Conditions status for specific version. Need to accept Azure Marketplace term so that the image can be used to create VMs. Example:- Checking for ISE version cisco-ise_3_2. Run the below command to check for ISE image subscription in Azure marketplace
+
 ```
 az vm image terms show --publisher cisco --offer cisco-ise-virtual --plan cisco-ise_3_2
 ```  
+  
+:memo: `NOTE:`
+ - If the output value is "accepted": false, then set the variable `marketplace_ise_image_agreement` to `false` in `terraform.tfvars` .
+    - This means the image TnC are are not accepted. We need to set the variable as 'false' to ensure it is accepted by the module.
+ - If the output value is "accepted": true, then set the variable  `marketplace_ise_image_agreement` to `true` in `terraform.tfvars` . 
+    - This means the image TnC are are accepted. We need to set the variable as 'true' and we are good to go.
+
 
 After updating the `terraform.tfvars` file, run the below commands to apply the changes and bring Up the ISE stack:
 
