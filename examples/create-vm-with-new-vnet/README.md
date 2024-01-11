@@ -2,7 +2,7 @@
 
 The module uses below inputs. 
 
-:warning: **Please do not make any changes to the variables.tf file. It is recommended to only update the terraform input variables in terraform.tfvars file**
+:warning: **It is recommended not to make any changes to the variables.tf file. Instead, you should update the terraform input variables only in terraform.tfvars file**
 
 ### Generating SSH-Key pair
 
@@ -15,8 +15,6 @@ ssh-keygen -t rsa -m PEM -b 4096 -C "azureuser@myserver" -f isekey
 ```
 
 Guide on how to create SSH keypair - https://learn.microsoft.com/en-us/azure/virtual-machines/linux/create-ssh-keys-detailed
-
-
 
 ### Update ISE image subscription agreement variable
 
@@ -36,8 +34,14 @@ az vm image terms show --publisher cisco --offer cisco-ise-virtual --plan cisco-
 After updating the `terraform.tfvars` file, run the below commands to apply the changes and bring Up the ISE stack:
 
 ```
-terraform init --upgrade
+terraform init --upgrade \
+-backend-config="resource_group_name=<resource_group_name>" \
+-backend-config="container_name=<container_name>" \
+-backend-config="storage_account_name=<storage_account_name>" \
+-reconfigure
+
 terraform plan
+
 terraform apply
 ```
 
