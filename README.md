@@ -45,7 +45,8 @@ To sign in, use a web browser to open the page https://microsoft.com/devicelogin
 6. As per Terraform's best practice, it is recommended to store the state file remotely in cloud. As Storing terraform state files in storage account provides enhanced collaboration, security and durability over keeping state files locally.
 - If you have a Azure storage account already created to store the state file, that needs to be referenced in terraform init command. 
 - If you do not have an existing storage account then please create Azure storage account configuration which needs to be referenced in terraform init command.
--- Run below commands to configure storage account
+
+Run below commands to configure storage account
 ```
 az group create --name myResourceGroup --location eastus
 
