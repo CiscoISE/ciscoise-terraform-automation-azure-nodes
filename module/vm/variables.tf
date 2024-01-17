@@ -103,8 +103,8 @@ variable "ise_node_names" {
 
 variable "ise_node_zone" {
   description = "Setting the different zone for each VM"
-  type = list(string)
-  default = []
+  type        = list(string)
+  default     = []
 }
 
 variable "ise_vm_size_sku" {

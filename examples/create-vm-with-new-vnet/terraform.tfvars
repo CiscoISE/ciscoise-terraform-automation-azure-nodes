@@ -1,7 +1,7 @@
 # Azure Setup related variables:
 
 subscription       = "4af28428-fadd-42d1-ba1c-ba3eef6d4a6c" # Enter your Azure Subscription ID.
-ise_resource_group = "Cisco_ISE_RG_NEW"                         # Enter the Azure Resource Group name to be created for ISE setup.
+ise_resource_group = "Cisco_ISE_RG_NEW"                     # Enter the Azure Resource Group name to be created for ISE setup.
 location           = "East US"                              # Enter the region/location to deploy the ISE setup that supports Availability Zone - Check here for Availability Zone support: https://azure.microsoft.com/en-gb/explore/global-infrastructure/geographies/#geographies
 
 
