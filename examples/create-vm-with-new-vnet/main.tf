@@ -81,6 +81,8 @@ module "ise_pan_vm_cluster" {
   pxGrid                          = var.pxGrid
   pxgrid_cloud                    = var.pxgrid_cloud
 
+  ise_node_zone = local.ise_pan_node_names
+
   depends_on = [module.ise_vnet]
 }
 
@@ -114,6 +116,8 @@ module "ise_psn_vm_cluster" {
   openapi                         = var.openapi
   pxGrid                          = var.pxGrid
   pxgrid_cloud                    = var.pxgrid_cloud
+
+  ise_node_zone = local.ise_psn_node_names
 
   depends_on = [module.ise_vnet]
 }
