@@ -1,9 +1,16 @@
 # Local .terraform directories
+.DS_Store
+
+# Local .terraform directories
 **/.terraform/*
 
+# Terraform lockfile
+**/.terraform.lock.hcl*
+
 # .tfstate files
-*.tfstate
-*.tfstate.*
+**/*.tfstate
+**/*.tfstate.*
+**/*.tfplan
 
 # Crash log files
 crash.log
@@ -27,3 +34,12 @@ override.tf.json
 
 # Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
 # example: *tfplan*
+
+# Ignore CLI configuration files
+.terraformrc
+terraform.rc
+
+
+# Ignore key 
+**/*.pub
+**/isekey*
