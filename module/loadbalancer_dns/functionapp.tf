@@ -100,7 +100,7 @@ resource "azurerm_app_configuration" "ise_appconf" {
   name                = "ise-appconf-${random_string.function_app_suffix.result}"
   resource_group_name = var.ise_resource_group
   location            = var.location
-  sku = "standard"
+  sku                 = "standard"
 }
 
 
