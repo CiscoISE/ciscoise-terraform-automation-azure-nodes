@@ -1,18 +1,5 @@
 /* ISE Modules for setting up the ISE node infrastructure for Medium deployment. */
 
-locals {
-  ise_pan_node_names = keys(var.virtual_machines_pan)
-  ise_psn_node_names = keys(var.virtual_machines_psn)
-
-  # roles_pan = flatten([for vm in values(var.virtual_machines_pan) : vm.roles != null ? [vm.roles] : []])
-  # roles_psn = flatten([for vm in values(var.virtual_machines_psn) : vm.roles != null ? [vm.roles] : []])
-  roles_psn = compact(flatten([for vm in values(var.virtual_machines_psn) : split(", ", vm.roles) if vm.roles != null]))
-  roles_pan = compact(flatten([for vm in values(var.virtual_machines_pan) : split(", ", vm.roles) if vm.roles != null]))
-  roles_set = concat(local.roles_pan, local.roles_psn)
-  roles     = local.roles_set
-}
-
-
 module "loadbalancer_dns" {
   source                           = "../../module/loadbalancer_dns"
   vnet_name                        = var.vnet_name #module.ise_vnet.vnet_name
