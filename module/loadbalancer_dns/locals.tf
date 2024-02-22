@@ -1,8 +1,8 @@
 locals {
-  ise_node_name             = var.ise_node_names
   appConIP                  = var.appConIP
-  pan_node                  = var.ise_pan_node_names
-  psn_node                  = var.ise_psn_node_names
+  pan_node                  = keys(var.virtual_machines_pan)
+  psn_node                  = keys(var.virtual_machines_psn)
+  ise_node_name             = concat(local.pan_node, local.psn_node)
   combined_key_value        = zipmap(local.appConIP, local.pan_node)
   appConfqdn                = var.appConfqdn
   combined_pan_kv_fqdn      = zipmap(local.appConfqdn, local.pan_node)

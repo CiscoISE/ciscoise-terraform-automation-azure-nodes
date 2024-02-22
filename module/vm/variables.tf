@@ -199,3 +199,69 @@ variable "pxgrid_cloud" {
   type        = string
   default     = ""
 }
+
+# variable "virtual_machines_pan" {
+#   description = <<-EOT
+#   Specify the configuration for pan instance. It should follow below format where key is the hostname and values are instance attributes.
+#   {
+#     <hostname> = {
+#       size = "<vm_size>",
+#       storage = "<storage_size>",
+#       services =  "<service_1>,<service_2>",
+#       roles = "<role_1>,<role_2>"
+#     }
+#   }
+#   EOT
+#   type = map(object({
+#     size     = string
+#     storage  = number
+#     services = optional(string)
+#     roles    = optional(string, "SecondaryAdmin")
+#   }))
+
+#   validation {
+#     condition     = length(flatten([for vm in values(var.virtual_machines_pan) : [for role in split(", ", vm.roles) : role if role != "SecondaryAdmin" && role != "SecondaryMonitoring" && role != "PrimaryMonitoring"]])) == 0
+#     error_message = "Roles can only accept 'PrimaryMonitoring or SecondaryMonitoring' and 'SecondaryAdmin' values."
+#   }
+
+# }
+
+# variable "virtual_machines_psn" {
+#   description = <<-EOT
+#   Specify the configuration for PSN instance. It should follow below format where key is the hostname and values are instance attributes.
+#   {
+#     <hostname> = {
+#       size = "<vm_size>",
+#       storage = "<storage_size>",
+#       services =  "<service_1>,<service_2>",
+#       roles = "<MnT_role>"
+#     }
+#   }
+#   EOT
+#   type = map(object({
+#     size     = string
+#     storage  = number
+#     services = optional(string) #string , "Session, Profiler"
+#     roles    = optional(string)
+#   }))
+
+#   validation {
+#     condition     = length([for vm in values(var.virtual_machines_psn) : vm.roles if vm.roles != null && (vm.roles != "SecondaryMonitoring" && vm.roles != "SecondaryDedicatedMonitoring" && vm.roles != "PrimaryMonitoring" && vm.roles != "PrimaryDedicatedMonitoring")]) == 0
+#     error_message = "Roles can only accept one of the value from 'SecondaryMonitoring', 'SecondaryDedicatedMonitoring', 'PrimaryDedicatedMonitoring', 'PrimaryMonitoring'."
+#   }
+
+#   validation {
+#     condition = length(flatten([for vm in values(var.virtual_machines_psn) :
+#       [for service in coalesce(split(", ", vm.services), []) :
+#         service if service != "Session" && service != "Profiler" && service != "TC-NAC" &&
+#         service != "SXP" && service != "DeviceAdmin" && service != "PassiveIdentity" &&
+#     service != "pxGrid" && service != "pxGridCloud"]])) == 0
+#     error_message = "Services can only accept values from Session, Profiler, TC-NAC, SXP, DeviceAdmin, PassiveIdentity, pxGrid, pxGridCloud."
+#   }
+
+#   validation {
+#     condition     = length([for vm in values(var.virtual_machines_psn) : vm if vm.roles == null && vm.services == null]) == 0
+#     error_message = "PSN node should contain one of the role or service"
+#   }
+
+# }

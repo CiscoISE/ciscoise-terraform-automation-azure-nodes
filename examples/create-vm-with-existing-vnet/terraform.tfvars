@@ -158,11 +158,13 @@ virtual_machines_psn = {
   }
 
   ise-psn-node-3 : {
+    services : "Session, Profiler, SXP, DeviceAdmin"
     size : "Standard_D4s_v4"
     storage : 600
   }
 
   ise-psn-node-test : {
+    services : "Session, Profiler, SXP, DeviceAdmin"
     size : "Standard_D4s_v4"
     storage : 600
   }

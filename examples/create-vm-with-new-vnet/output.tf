@@ -42,15 +42,3 @@ output "private_dns_records" {
 output "loadbalancer_frontendIP" {
   value = module.loadbalancer_dns.loadbalancer_frontendIP
 }
-
-# output "roles_debug" {
-#   value = jsonencode(local.roles)
-# }
-
-output "var_test" {
-  value = var.virtual_machines_psn
-}
-
-output "roles" {
-  value = local.roles
-}

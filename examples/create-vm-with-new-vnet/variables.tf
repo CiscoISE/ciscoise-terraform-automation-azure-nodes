@@ -304,7 +304,7 @@ variable "pxgrid_cloud" {
   default     = ""
 }
 
-################################################# Testing Variables ##################################################
+################################################# Node Variables ##################################################
 
 variable "virtual_machines_pan" {
   description = <<-EOT
@@ -324,13 +324,8 @@ variable "virtual_machines_pan" {
     services = optional(string)
     roles    = optional(string, "SecondaryAdmin")
   }))
-  # default = {
-  #   ise-pan-primary   = { size = "Standard_B2ms", storage = 400 } # NOTE: Don't pass the values for services and roles in Primary Node.
-  #   ise-pan-secondary = { size = "Standard_B2ms", storage = 500, services = "Session, Profiler, pxGrid", roles = "SecondaryAdmin" }
-  # }
 
   validation {
-    #condition     = length([for vm in values(var.virtual_machines_pan) : vm.roles if vm.roles != null && (vm.roles != "SecondaryMonitoring" && vm.roles != "SecondaryAdmin" && vm.roles != "PrimaryMonitoring")]) == 0
     condition     = length(flatten([for vm in values(var.virtual_machines_pan) : [for role in split(", ", vm.roles) : role if role != "SecondaryAdmin" && role != "SecondaryMonitoring" && role != "PrimaryMonitoring"]])) == 0
     error_message = "Roles can only accept 'PrimaryMonitoring or SecondaryMonitoring' and 'SecondaryAdmin' values."
   }
@@ -352,17 +347,9 @@ variable "virtual_machines_psn" {
   type = map(object({
     size     = string
     storage  = number
-    services = optional(string, "Session, Profiler") #string
+    services = optional(string)
     roles    = optional(string)
   }))
-  # default = {
-  #   ise-psn-node-1 = { size = "Standard_D4s_v4", storage = 500, services = "Session, Profiler, SXP, DeviceAdmin" }
-  #   ise-psn-node-2 = { size = "Standard_D4s_v4", storage = 550, services = "PassiveIdentity, pxGrid, pxGridCloud", roles = "PrimaryDedicatedMonitoring" }
-  #   # ise-psn-node-3 = { size = "Standard_D4s_v4", storage = 600, services = "Session, Profiler"}
-  #   ise-psn-node-3    = { size = "Standard_D4s_v4", storage = 600 }
-  #   ise-psn-node-test = { size = "Standard_D4s_v4", storage = 600 }
-
-  # }
 
   validation {
     condition     = length([for vm in values(var.virtual_machines_psn) : vm.roles if vm.roles != null && (vm.roles != "SecondaryMonitoring" && vm.roles != "SecondaryDedicatedMonitoring" && vm.roles != "PrimaryMonitoring" && vm.roles != "PrimaryDedicatedMonitoring")]) == 0
@@ -376,6 +363,11 @@ variable "virtual_machines_psn" {
         service != "SXP" && service != "DeviceAdmin" && service != "PassiveIdentity" &&
     service != "pxGrid" && service != "pxGridCloud"]])) == 0
     error_message = "Services can only accept values from Session, Profiler, TC-NAC, SXP, DeviceAdmin, PassiveIdentity, pxGrid, pxGridCloud."
+  }
+
+  validation {
+    condition     = length([for vm in values(var.virtual_machines_psn) : vm if vm.roles == null && vm.services == null]) == 0
+    error_message = "PSN node should contain one of the role or service"
   }
 
 }

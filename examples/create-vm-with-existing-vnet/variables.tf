@@ -339,7 +339,7 @@ variable "virtual_machines_psn" {
   type = map(object({
     size     = string
     storage  = number
-    services = optional(string, "Session, Profiler") #string
+    services = optional(string)
     roles    = optional(string)
   }))
   # default = {
@@ -363,6 +363,11 @@ variable "virtual_machines_psn" {
         service != "SXP" && service != "DeviceAdmin" && service != "PassiveIdentity" &&
     service != "pxGrid" && service != "pxGridCloud"]])) == 0
     error_message = "Services can only accept values from Session, Profiler, TC-NAC, SXP, DeviceAdmin, PassiveIdentity, pxGrid, pxGridCloud."
+  }
+
+  validation {
+    condition     = length([for vm in values(var.virtual_machines_psn) : vm if vm.roles == null && vm.services == null]) == 0
+    error_message = "PSN node should contain one of the role or service"
   }
 
 }

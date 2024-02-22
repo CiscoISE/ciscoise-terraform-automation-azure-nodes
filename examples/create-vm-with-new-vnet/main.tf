@@ -1,3 +1,9 @@
+locals {
+  roles_psn = compact(flatten([for vm in values(var.virtual_machines_psn) : split(", ", vm.roles) if vm.roles != null]))
+  roles_pan = compact(flatten([for vm in values(var.virtual_machines_pan) : split(", ", vm.roles) if vm.roles != null]))
+  roles_set = concat(local.roles_pan, local.roles_psn)
+  roles     = local.roles_set
+}
 
 module "ise_vnet" {
   source               = "git@github3.cisco.com:techops-operation/ise_launch_template-terraform-azure-vnet.git//modules/vnet"
@@ -18,14 +24,11 @@ module "loadbalancer_dns" {
   ise_resource_group               = var.ise_resource_group
   ise_lb_subnet_name               = module.ise_vnet.ise_lb_subnet_name
   ise_func_subnet                  = module.ise_vnet.ise_func_subnet
-  ise_node_names                   = concat(local.ise_psn_node_names, local.ise_pan_node_names)
   ise_lb_name                      = var.ise_lb_name
   ise_lb_sku                       = var.ise_lb_sku
   frontend_ip_allocation           = var.frontend_ip_allocation
   frontend_lb_ip_name              = var.frontend_lb_ip_name
   ise_lb_backend_address_pool_name = var.ise_lb_backend_address_pool_name
-  ise_pan_node_names               = local.ise_pan_node_names
-  ise_psn_node_names               = local.ise_psn_node_names
   ise_vm_private_dns_zone_name     = var.dnsdomain
   ise_vm_adminuser_name            = var.ise_vm_adminuser_name
   password                         = var.password
@@ -34,8 +37,7 @@ module "loadbalancer_dns" {
   virtual_machines_psn             = var.virtual_machines_psn
   github_token                     = var.github_token
   github_repo                      = var.github_repo
-  # ise_vm_nic = module.ise_pan_vm_cluster.ise_vm_nic
-  depends_on = [module.ise_vnet, module.ise_pan_vm_cluster, module.ise_psn_vm_cluster]
+  depends_on                       = [module.ise_vnet, module.ise_pan_vm_cluster, module.ise_psn_vm_cluster]
 }
 
 module "ise_pan_vm_cluster" {
@@ -45,10 +47,10 @@ module "ise_pan_vm_cluster" {
   vnet_name                       = module.ise_vnet.vnet_name
   ise_vm_subnet_name              = module.ise_vnet.ise_vm_subnet_name
   ise_resource_group              = var.ise_resource_group
-  ise_node_names                  = [each.key] #var.ise_pan_node_names
+  ise_node_names                  = [each.key]
   marketplace_ise_image_agreement = var.marketplace_ise_image_agreement
-  ise_vm_size_sku                 = each.value.size    #var.ise_vm_size_sku
-  disk_size                       = each.value.storage #var.disk_size
+  ise_vm_size_sku                 = each.value.size
+  disk_size                       = each.value.storage
   ise_vm_vm_sa_caching            = var.ise_vm_vm_sa_caching
   ise_vm_vm_storage_account_type  = var.ise_vm_vm_storage_account_type
   ise_image_sku                   = var.ise_image_sku
@@ -68,8 +70,7 @@ module "ise_pan_vm_cluster" {
   openapi                         = var.openapi
   pxGrid                          = var.pxGrid
   pxgrid_cloud                    = var.pxgrid_cloud
-
-  ise_node_zone = local.ise_pan_node_names
+  ise_node_zone                   = keys(var.virtual_machines_pan)
 
   depends_on = [module.ise_vnet]
 }
@@ -81,10 +82,10 @@ module "ise_psn_vm_cluster" {
   vnet_name                       = module.ise_vnet.vnet_name
   ise_vm_subnet_name              = module.ise_vnet.ise_vm_subnet_name
   ise_resource_group              = var.ise_resource_group
-  ise_node_names                  = [each.key] #var.ise_psn_node_names
+  ise_node_names                  = [each.key]
   marketplace_ise_image_agreement = var.marketplace_ise_image_agreement_psn
-  ise_vm_size_sku                 = each.value.size    #var.ise_vm_size_sku_psn
-  disk_size                       = each.value.storage #var.disk_size_psn
+  ise_vm_size_sku                 = each.value.size
+  disk_size                       = each.value.storage
   ise_vm_vm_sa_caching            = var.ise_vm_vm_sa_caching
   ise_vm_vm_storage_account_type  = var.ise_vm_vm_storage_account_type
   ise_image_sku                   = var.ise_image_sku
@@ -104,17 +105,13 @@ module "ise_psn_vm_cluster" {
   openapi                         = var.openapi
   pxGrid                          = var.pxGrid
   pxgrid_cloud                    = var.pxgrid_cloud
-
-  ise_node_zone = local.ise_psn_node_names
+  ise_node_zone                   = keys(var.virtual_machines_psn)
 
   depends_on = [module.ise_vnet]
 }
-
-
 
 
 data "assert_test" "redundant_monitoring_values" {
   test  = length(flatten([for role in local.roles : role if role == "SecondaryMonitoring" || role == "SecondaryDedicatedMonitoring" || role == "PrimaryMonitoring" || role == "PrimaryDedicatedMonitoring"])) <= 1
   throw = "SecondaryMonitoring and SecondaryDedicatedMonitoring roles should be present in any one variable only once and not simultaneously in both variables"
 }
-

@@ -182,11 +182,13 @@ virtual_machines_psn = {
 
   ise-psn-node-3 : {
     size : "Standard_D4s_v4"
+    services : "PassiveIdentity, pxGrid"
     storage : 600
   }
 
   ise-psn-node-test : {
     size : "Standard_D4s_v4"
+    services : "Session, Profiler"
     storage : 600
   }
 }

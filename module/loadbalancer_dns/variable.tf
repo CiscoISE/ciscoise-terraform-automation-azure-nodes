@@ -106,11 +106,11 @@ variable "ise_vnet_dns_link_name" {
 ##############    Block for ISE App Configuration related variables   ################
 ######################################################################################
 
-variable "ise_node_names" {
-  description = "Enter the desired number of ISE Virtual Machine hostname in a list separated by comma"
-  type        = list(string)
-  default     = []
-}
+# variable "ise_node_names" {
+#   description = "Enter the desired number of ISE Virtual Machine hostname in a list separated by comma"
+#   type        = list(string)
+#   default     = []
+# }
 
 variable "appConIP" {
   description = "App Configuration Key variables for storing PAN primary and secondary IP address"
@@ -118,16 +118,16 @@ variable "appConIP" {
   default     = ["primary_ip", "secondary_ip"]
 }
 
-variable "ise_pan_node_names" {
-  description = "Enter the PAN primary and secondary ISE Virtual Machine hostname in a list separated by comma"
-  type        = list(string)
-  default     = []
-}
+# variable "ise_pan_node_names" {
+#   description = "Enter the PAN primary and secondary ISE Virtual Machine hostname in a list separated by comma"
+#   type        = list(string)
+#   default     = []
+# }
 
-variable "ise_psn_node_names" {
-  description = "Enter the PSN ISE Virtual Machine hostname in a list separated by comma"
-  type        = list(string)
-}
+# variable "ise_psn_node_names" {
+#   description = "Enter the PSN ISE Virtual Machine hostname in a list separated by comma"
+#   type        = list(string)
+# }
 
 
 variable "appConfqdn" {
