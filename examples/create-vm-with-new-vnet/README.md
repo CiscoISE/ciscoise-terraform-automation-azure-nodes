@@ -49,6 +49,19 @@ Type 'yes' when prompted after running terraform apply
 
 After setting up ISE infra using terraform, it will take 45-60 minutes for the stack to deploy and ISE application to come up.
 
+## Required Network resources
+
+This example module creates below Azure VNET resources to setup the VNET infrastructure.
+
+| Resource Type | Count | Comments |
+| ---- |:----:| ---- |
+| Resource Group | 1 |  |
+| Virtual Network (VNET) | 1 | Private network |
+| NAT Gateway | 1 | For outbound requests from private subnets |
+| Public IP addresss | 1 | For NAT Gateway |
+| Network Security Group(NSG) | 2 | Separate NSG for public and Private subnets |
+| Subnets | 3 Private, 3 Public, 1 delegated for Function App | All resources are being deployed in private subnets  |
+
 ## Inputs
 
 | Name | Description | Type | Default |
