@@ -94,7 +94,7 @@ Here, we are using Azure CLI for authentication and configure Terraform to use a
 
 ### 2. Deploy using a new VNET
 
-To deploy using a new VNET value
+To deploy using a new VNET 
 
 ```
 cd examples/create-vm-with-new-vnet
