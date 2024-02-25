@@ -42,7 +42,8 @@ To sign in, use a web browser to open the page https://microsoft.com/devicelogin
 3. Check ISE image subscription status for Azure marketplace agreement acceptance and ISE VM image version details - [Refer here](./docs/azure-cli-commands.md)
 4. ( :exclamation: `IMPORTANT` )- This ISE setup is being deployed in the high availability so please make sure the `region` selected to deploy the ISE VM supports the `Availability zones`. [Regions that support availability zone](https://azure.microsoft.com/en-gb/explore/global-infrastructure/geographies/#geographies)
 5. For existing VNET setup: 3 Private Subnets - (2 subnets for deploying VM and Loadbalancer and, 1 - subnet delegated to service Microsoft.Web/serverFarms  for Function App VNET integration)
-6. As per Terraform's best practice, it is recommended to store the state file remotely in cloud. As Storing terraform state files in storage account provides enhanced collaboration, security and durability over keeping state files locally.
+6. All the ISE resources reside in the private subnet within the VNET. The associated network security group (NSG) uses default rules that allow all inbound and outbound traffic within the VNET on all ports/protocol. In order to restrict the inbound/outbound traffic to ISE specific ports, please make the specific changes in the assigned NSG to allow necessary communication.
+7. As per Terraform's best practice, it is recommended to store the state file remotely in cloud. As Storing terraform state files in storage account provides enhanced collaboration, security and durability over keeping state files locally.
 - If you have a Azure storage account already created to store the state file, that needs to be referenced in terraform init command. 
 - If you do not have an existing storage account then please create Azure storage account configuration which needs to be referenced in terraform init command.
 
