@@ -15,7 +15,6 @@ terraform {
 provider "azurerm" {
   # Configuration options
   features {}
-  subscription_id            = var.subscription
-  skip_provider_registration = true
+  subscription_id = var.subscription
 }
 
