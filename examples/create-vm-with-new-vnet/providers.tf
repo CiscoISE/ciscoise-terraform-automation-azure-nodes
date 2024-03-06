@@ -19,7 +19,6 @@ provider "azurerm" {
       prevent_deletion_if_contains_resources = false
     }
   }
-  subscription_id            = var.subscription
-  skip_provider_registration = true
+  subscription_id = var.subscription
 }
 
