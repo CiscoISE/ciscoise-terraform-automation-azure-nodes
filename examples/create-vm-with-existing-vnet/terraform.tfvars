@@ -75,6 +75,7 @@ NOTE: For configuration, please make sure to follow the syntax as mentioned and 
 */
 
 # Enter the PAN node hostname as key and other allowed attributes in the values - (Allowed attribues size, storage, services, roles) separated by comma, currently only Two PAN nodes are supported in this ISE stack deployment.
+# NOTE: Hostname only supports alphanumeric characters and hyphen (-). The length of the hostname should not exceed 19 characters, otherwise deployment will fail
 
 /*
 This is the reference block for ISE node variables -  How to update the variable and it's attributes
@@ -117,6 +118,7 @@ virtual_machines_pan = {
 
 
 # Enter the PSN node hostname as key and other allowed attributes in the values - (Allowed attribues size, storage, services, roles) comma space separated, currently only Eight PSN nodes are supported in this ISE stack deployment.
+# NOTE: Hostname only supports alphanumeric characters and hyphen (-). The length of the hostname should not exceed 19 characters, otherwise deployment will fail
 
 /*
 This is the reference block for ISE node variables -  How to update the variable and it's attributes
