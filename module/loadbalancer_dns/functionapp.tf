@@ -23,6 +23,7 @@ resource "random_string" "function_app_suffix" {
 }
 
 resource "azurerm_source_control_token" "external_repo_token" {
+  count = var.github_token == "" ? 0:1
   type  = "GitHub"
   token = var.github_token
 }
