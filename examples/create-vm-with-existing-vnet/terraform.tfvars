@@ -51,7 +51,7 @@ ise_lb_sku                       = "Standard"                # Enter the Loadbal
 
 ise_vnet_dns_link_name = "ise_vnet_dns_link" # Enter the name for VNET link to associate with the Private DNS zone.
 
-github_repo = "https://github.com/CiscoISE/ciscoise-terraform-automation-azure-nodes"
+github_repo = "https://github.com/CiscoISE/ciscoise-terraform-automation-azure-functions"
 # github_token = "ghp_xxxxxxxxxxxxxxxxxxxxxxxxx"            # Enter Github token if azure function repo is private.
 
 
