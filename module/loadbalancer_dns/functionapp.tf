@@ -66,9 +66,11 @@ resource "azurerm_linux_function_app" "ise-function-app" {
     "AzureWebJobsStorage"            = azurerm_storage_account.ise-app-storage.primary_connection_string
     "APPINSIGHTS_INSTRUMENTATIONKEY" = azurerm_application_insights.func-appinsights.instrumentation_key
     "AppConfigConnectionString"      = azurerm_app_configuration.ise_appconf.primary_read_key[0].connection_string
+    "AzureFunctionsJobHost__functionTimeout" = "04:00:00"
   }
 
   site_config {
+    always_on = true
     application_stack {
       python_version = "3.10"
     }
