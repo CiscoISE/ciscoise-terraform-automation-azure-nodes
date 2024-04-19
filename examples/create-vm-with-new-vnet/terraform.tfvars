@@ -74,8 +74,8 @@ ise_lb_sku                       = "Standard"                # Enter the Loadbal
 
 ise_vnet_dns_link_name = "ise_vnet_dns_link" # Enter the name for VNET link to associate with the Private DNS zone.
 
-github_repo = "https://github.com/CiscoISE/ciscoise-terraform-automation-azure-functions"
-# github_token = "ghp_xxxxxxxxyyyyyyyyyyzzzzzz" # Enter Github token if azure function repo is private.
+github_repo  = "https://github.com/CiscoISE/ciscoise-terraform-automation-azure-functions"
+github_token = "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" # Enter Github token if azure function repo is private.
 
 
 ###############################################################
@@ -127,7 +127,7 @@ virtual_machines_pan = {
 
 virtual_machines_pan = {
   ise-pan-primary : {
-    size : "Standard_B2ms"
+    size : "Standard_D8s_v3"
     storage : 400
   }
 
@@ -169,29 +169,28 @@ virtual_machines_psn = {
 */
 
 virtual_machines_psn = {
-  ise-psn-node-1 : {
+  ise-psn-node-01 : {
     services : "Session, Profiler, SXP, DeviceAdmin"
     size : "Standard_D4s_v4"
     storage : 500
   }
 
-  ise-psn-node-2 : {
-    roles : "PrimaryDedicatedMonitoring"
+  ise-psn-node-02 : {
     services : "PassiveIdentity, pxGrid, pxGridCloud"
     size : "Standard_D4s_v4"
     storage : 550
   }
 
-  ise-psn-node-3 : {
+  ise-psn-node-03 : {
     size : "Standard_D4s_v4"
     services : "PassiveIdentity, pxGrid"
     storage : 600
   }
 
   ise-psn-node-test : {
+    services : "Session, Profiler, SXP, DeviceAdmin"
     size : "Standard_D4s_v4"
-    services : "Session, Profiler"
-    storage : 600
+    storage : 500
   }
 }
 
