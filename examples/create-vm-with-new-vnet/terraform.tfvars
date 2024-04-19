@@ -176,6 +176,7 @@ virtual_machines_psn = {
   }
 
   ise-psn-node-02 : {
+    roles : "PrimaryDedicatedMonitoring"
     services : "PassiveIdentity, pxGrid, pxGridCloud"
     size : "Standard_D4s_v4"
     storage : 550
@@ -188,7 +189,7 @@ virtual_machines_psn = {
   }
 
   ise-psn-node-test : {
-    services : "Session, Profiler, SXP, DeviceAdmin"
+    services : "Session, Profiler"
     size : "Standard_D4s_v4"
     storage : 500
   }
