@@ -185,3 +185,71 @@ resource "azurerm_lb_rule" "ise-lb-rule-psn-gui" {
   backend_address_pool_ids       = [azurerm_lb_backend_address_pool.ise-vm-backendpool.id]
   load_distribution              = "SourceIPProtocol"
 }
+
+
+######################################### Private Endpoint Configuration for Function App Storage Account #########################################
+
+resource "azurerm_private_endpoint" "ise-app-storage-endpoint" {
+  name                = "ise-app-storage-endpoint"
+  location            = var.location
+  resource_group_name = var.ise_resource_group
+  subnet_id           = data.azurerm_subnet.ise_lb_subnet.id
+
+  private_service_connection {
+    name                           = "ise-app-storage-privateserviceconnection"
+    private_connection_resource_id = azurerm_storage_account.ise-app-storage.id
+    subresource_names              = ["blob"]
+    is_manual_connection           = false
+  }
+
+  private_dns_zone_group {
+    name                 = "ise-app-storage-private-dns-zone-group"
+    private_dns_zone_ids = [azurerm_private_dns_zone.ise-app-storage-private-dns-zone.id]
+  }
+}
+
+resource "azurerm_private_dns_zone" "ise-app-storage-private-dns-zone" {
+  name                = "privatelink.blob.core.windows.net"
+  resource_group_name = var.ise_resource_group
+}
+
+resource "azurerm_private_dns_zone_virtual_network_link" "ise-app-storage-dns-vnet-link" {
+  name                  = "ise-app-storage-dns-vnet-link"
+  resource_group_name   = var.ise_resource_group
+  private_dns_zone_name = azurerm_private_dns_zone.ise-app-storage-private-dns-zone.name
+  virtual_network_id    = data.azurerm_virtual_network.ise_vnet.id
+}
+
+
+######################################### Private Endpoint Configuration for Function App  #########################################
+
+resource "azurerm_private_endpoint" "ise-function-app-endpoint" {
+  name                = "ise-function-app-endpoint"
+  location            = var.location
+  resource_group_name = var.ise_resource_group
+  subnet_id           = data.azurerm_subnet.ise_lb_subnet.id
+
+  private_service_connection {
+    name                           = "ise-function-app-privateserviceconnection"
+    private_connection_resource_id = azurerm_linux_function_app.ise-function-app.id
+    subresource_names              = ["sites"]
+    is_manual_connection           = false
+  }
+
+  private_dns_zone_group {
+    name                 = "ise-function-app-private-dns-zone-group"
+    private_dns_zone_ids = [azurerm_private_dns_zone.ise-function-app-private-dns-zone.id]
+  }
+}
+
+resource "azurerm_private_dns_zone" "ise-function-app-private-dns-zone" {
+  name                = "privatelink.azurewebsites.net"
+  resource_group_name = var.ise_resource_group
+}
+
+resource "azurerm_private_dns_zone_virtual_network_link" "ise-function-app-dns-vnet-link" {
+  name                  = "ise-function-app-dns-vnet-link"
+  resource_group_name   = var.ise_resource_group
+  private_dns_zone_name = azurerm_private_dns_zone.ise-function-app-private-dns-zone.name
+  virtual_network_id    = data.azurerm_virtual_network.ise_vnet.id
+}

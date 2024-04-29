@@ -22,11 +22,12 @@ data "azurerm_subnet" "ise_func_subnet" {
 
 
 resource "azurerm_storage_account" "ise-app-storage" {
-  name                     = "iseappstorage${random_string.function_app_suffix.result}"
-  resource_group_name      = var.ise_resource_group
-  location                 = var.location
-  account_tier             = "Standard"
-  account_replication_type = "GRS"
+  name                          = "iseappstorage${random_string.function_app_suffix.result}"
+  resource_group_name           = var.ise_resource_group
+  location                      = var.location
+  account_tier                  = "Standard"
+  account_replication_type      = "GRS"
+  public_network_access_enabled = false
 }
 
 resource "random_string" "function_app_suffix" {
@@ -69,19 +70,20 @@ resource "azurerm_service_plan" "ise-asp" {
 }
 
 resource "azurerm_linux_function_app" "ise-function-app" {
-  name                       = "ise-function-app-${random_string.function_app_suffix.result}"
-  location                   = var.location
-  resource_group_name        = var.ise_resource_group
-  service_plan_id            = azurerm_service_plan.ise-asp.id
-  storage_account_name       = azurerm_storage_account.ise-app-storage.name
-  storage_account_access_key = azurerm_storage_account.ise-app-storage.primary_access_key
-  virtual_network_subnet_id  = data.azurerm_subnet.ise_func_subnet.id
+  name                          = "ise-function-app-${random_string.function_app_suffix.result}"
+  location                      = var.location
+  resource_group_name           = var.ise_resource_group
+  service_plan_id               = azurerm_service_plan.ise-asp.id
+  storage_account_name          = azurerm_storage_account.ise-app-storage.name
+  storage_account_access_key    = azurerm_storage_account.ise-app-storage.primary_access_key
+  virtual_network_subnet_id     = data.azurerm_subnet.ise_func_subnet.id
+  public_network_access_enabled = false
 
   app_settings = {
-    "SCM_DO_BUILD_DURING_DEPLOYMENT" = true
-    "AzureWebJobsStorage"            = azurerm_storage_account.ise-app-storage.primary_connection_string
-    "APPINSIGHTS_INSTRUMENTATIONKEY" = azurerm_application_insights.func-appinsights.instrumentation_key
-    "AppConfigConnectionString"      = azurerm_app_configuration.ise_appconf.primary_read_key[0].connection_string
+    "SCM_DO_BUILD_DURING_DEPLOYMENT"         = true
+    "AzureWebJobsStorage"                    = azurerm_storage_account.ise-app-storage.primary_connection_string
+    "APPINSIGHTS_INSTRUMENTATIONKEY"         = azurerm_application_insights.func-appinsights.instrumentation_key
+    "AppConfigConnectionString"              = azurerm_app_configuration.ise_appconf.primary_read_key[0].connection_string
     "AzureFunctionsJobHost__functionTimeout" = "04:00:00"
   }
 
