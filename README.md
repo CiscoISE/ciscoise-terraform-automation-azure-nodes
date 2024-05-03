@@ -1,6 +1,7 @@
 # Automated ISE setup with Infrastructure as Code using Terraform on Azure
 
-This project runs terraform module to setup ISE infrastructure on Azure Cloud Platform.
+1. This project runs terraform module to deploy upto 58 ISE nodes(min:2 | max:58) on Azure based on User Input.
+2. It deploys the required Infrastructure and configure ISE nodes as per User Input.
 
 ## Requirements
 - Terraform ~> 1.5.x
