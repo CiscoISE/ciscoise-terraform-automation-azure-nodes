@@ -38,7 +38,7 @@ variable "location" {
 
 
 ######################################################################################
-#######################  Block for VNET related variables  ###########################
+################### Block for Virtual Network related variables  #####################
 ######################################################################################
 
 variable "vnet_name" {
@@ -245,7 +245,6 @@ variable "github_repo" {
   default     = ""
 }
 
-
 ######################################################################################
 ##################### Block for ISE Node Userdata variables  #########################
 ######################################################################################
@@ -308,7 +307,6 @@ variable "pxgrid_cloud" {
 }
 
 
-
 variable "virtual_machines_pan" {
   description = <<-EOT
   Specify the configuration for pan instance. It should follow below format where key is the hostname and values are instance attributes.
@@ -333,7 +331,6 @@ variable "virtual_machines_pan" {
   # }
 
   validation {
-    #condition     = length([for vm in values(var.virtual_machines_pan) : vm.roles if vm.roles != null && (vm.roles != "SecondaryMonitoring" && vm.roles != "SecondaryAdmin" && vm.roles != "PrimaryMonitoring")]) == 0
     condition     = length(flatten([for vm in values(var.virtual_machines_pan) : [for role in split(", ", vm.roles) : role if role != "SecondaryAdmin" && role != "SecondaryMonitoring" && role != "PrimaryMonitoring"]])) == 0
     error_message = "Roles can only accept 'PrimaryMonitoring or SecondaryMonitoring' and 'SecondaryAdmin' values."
   }

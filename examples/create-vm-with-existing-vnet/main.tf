@@ -43,8 +43,7 @@ module "loadbalancer_dns" {
   virtual_machines_psn             = var.virtual_machines_psn
   github_token                     = var.github_token
   github_repo                      = var.github_repo
-
-  depends_on = [module.ise_pan_vm_cluster, module.ise_psn_vm_cluster]
+  depends_on                       = [module.ise_pan_vm_cluster, module.ise_psn_vm_cluster]
 }
 
 module "ise_pan_vm_cluster" {
@@ -77,10 +76,7 @@ module "ise_pan_vm_cluster" {
   openapi                         = var.openapi
   pxGrid                          = var.pxGrid
   pxgrid_cloud                    = var.pxgrid_cloud
-
-  ise_node_zone = keys(var.virtual_machines_pan)
-
-  #depends_on = [module.ise_vnet]
+  ise_node_zone                   = keys(var.virtual_machines_pan)
 }
 
 module "ise_psn_vm_cluster" {
@@ -113,10 +109,7 @@ module "ise_psn_vm_cluster" {
   openapi                         = var.openapi
   pxGrid                          = var.pxGrid
   pxgrid_cloud                    = var.pxgrid_cloud
-
-  ise_node_zone = keys(var.virtual_machines_psn)
-
-  # depends_on = [module.ise_vnet]
+  ise_node_zone                   = keys(var.virtual_machines_psn)
 }
 
 

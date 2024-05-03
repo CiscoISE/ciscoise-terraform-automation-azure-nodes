@@ -148,7 +148,7 @@ variable "marketplace_ise_image_agreement_psn" {
 # }
 
 # variable "disk_size" {
-#   description = "ISE Virtual Machine disk size"
+#   description = "ISE node disk size"
 #   type        = number
 # }
 
@@ -158,13 +158,13 @@ variable "marketplace_ise_image_agreement_psn" {
 # }
 
 variable "ise_vm_adminuser_name" {
-  description = "Enter the ISE admin username"
+  description = "ISE admin username"
   type        = string
   default     = ""
 }
 
 variable "ise_vm_vm_storage_account_type" {
-  description = "Virtual Machine disk storage type"
+  description = "Disk storage type"
   type        = string
   default     = ""
 }
@@ -238,7 +238,6 @@ variable "ise_lb_backend_address_pool_name" {
 ######################################################################################
 ################ Block for ISE Private DNS zone related variables  ###################
 ######################################################################################
-
 
 
 variable "ise_vnet_dns_link_name" {
@@ -320,7 +319,6 @@ variable "pxgrid_cloud" {
   default     = ""
 }
 
-################################################# Node Variables ##################################################
 
 variable "virtual_machines_pan" {
   description = <<-EOT
