@@ -121,7 +121,7 @@ virtual_machines_pan = {
 
 virtual_machines_pan = {
   ise-pan-primary : {
-    size : "Standard_B2ms"
+    size : "Standard_D8s_v3"
     storage : 400
   }
 
@@ -163,28 +163,28 @@ virtual_machines_psn = {
 */
 
 virtual_machines_psn = {
-  ise-psn-node-1 : {
+  ise-psn-node-01 : {
     services : "Session, Profiler, SXP, DeviceAdmin"
     size : "Standard_D4s_v4"
     storage : 500
   }
 
-  ise-psn-node-2 : {
+  ise-psn-node-02 : {
     roles : "PrimaryDedicatedMonitoring"
     services : "PassiveIdentity, pxGrid, pxGridCloud"
     size : "Standard_D4s_v4"
     storage : 550
   }
 
-  ise-psn-node-3 : {
-    services : "Session, Profiler, SXP, DeviceAdmin"
+  ise-psn-node-03 : {
     size : "Standard_D4s_v4"
+    services : "PassiveIdentity, pxGrid"
     storage : 600
   }
 
   ise-psn-node-test : {
-    services : "Session, Profiler, SXP, DeviceAdmin"
+    services : "Session, Profiler"
     size : "Standard_D4s_v4"
-    storage : 600
+    storage : 500
   }
 }
