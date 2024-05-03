@@ -109,7 +109,8 @@ NOTE: For configuration, please make sure to follow the syntax as mentioned and 
     2. Secondary pan node supports SecondaryAdmin, SecondaryMonitoring and PrimaryMonitoring roles.
     3. PSN node can act as a Mnt (Monitoring) node by assigning any one of these roles - SecondaryMonitoring, SecondaryDedicatedMonitoring, PrimaryMonitoring or PrimaryDedicatedMonitoring
     4. Monitoring role can only be passed once across both the virtual_machines_pan and virtual_machines_psn variable
-    5. Valid characters for hostnames are ASCII(7) letters from a to z , the digits from 0 to 9 , and the hyphen (−).
+    5. Service pxGridCloud cannot be added more than once in workload nodes.
+    6. Valid characters for hostnames are ASCII(7) letters from a to z , the digits from 0 to 9 , and the hyphen (−).
 
 */
 
