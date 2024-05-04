@@ -1,7 +1,7 @@
 [![ISE VERSION](https://img.shields.io/badge/ISE%20SUPPORTED%20VERSIONS-3.2%20AND%203.3-blue?style=for-the-badge&logo=cisco)](https://www.cisco.com/c/en/us/support/security/identity-services-engine/series.html)
 [![Terraform Azure](https://img.shields.io/badge/IaC-Terraform-blue?style=for-the-badge&logo=terraform)](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs)
 [![Azure](https://img.shields.io/badge/Azure-Cloud-blue?style=for-the-badge&logo=microsoftazure)](https://azure.microsoft.com/)
-[![Python](https://img.shields.io/badge/FUNCTION%20APP-Python-3572A5?style=for-the-badge)](https://github.com/CiscoISE/ciscoise-terraform-automation-azure-functions)
+[![Python](https://img.shields.io/badge/AZURE%20FUNCTION%20APP-Python-3572A5?style=for-the-badge)](https://github.com/CiscoISE/ciscoise-terraform-automation-azure-functions)
 
 # Automated ISE setup with Infrastructure as Code using Terraform on Azure
 
