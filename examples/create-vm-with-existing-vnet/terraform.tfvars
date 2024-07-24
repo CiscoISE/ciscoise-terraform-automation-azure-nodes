@@ -88,7 +88,7 @@ NOTE: For configuration, please make sure to follow the syntax as mentioned and 
     4. Monitoring role can only be passed once across both the virtual_machines_pan and virtual_machines_psn variable
     5. Service pxGridCloud cannot be added more than once in workload nodes.
     6. Valid characters for hostnames are ASCII(7) letters from a to z , the digits from 0 to 9 , and the hyphen (−).
-
+    7. To create only Primary and secondary nodes without any PSN's, virtual_machines_psn variable should be set to {}
 */
 
 # Enter the PAN node hostname as key and other allowed attributes in the values - (Allowed attribues size, storage, services, roles) separated by comma, currently only Two PAN nodes are supported in this ISE stack deployment.
