@@ -83,7 +83,7 @@ variable "ise_offer" {
 }
 
 variable "ise_plan_name" {
-  description = "Plan Name for using the Marketplace ISE image, available options - cisco-ise_3_2 & cisco-ise_3_3"
+  description = "Plan Name for using the Marketplace ISE image, available options - cisco-ise_3_2, cisco-ise_3_3 &  cisco-ise_3_4"
   type        = string
   default     = ""
 }
@@ -95,13 +95,13 @@ variable "ise_plan_product" {
 }
 
 variable "ise_image_sku" {
-  description = "ISE image sku - available values -  cisco-ise_3_2 & cisco-ise_3_3 "
+  description = "ISE image sku - available values -  cisco-ise_3_2, cisco-ise_3_3 &  cisco-ise_3_4 "
   type        = string
   default     = ""
 }
 
 variable "ise_image_version" {
-  description = "ISE image version - available versions: 3.2.543 & 3.3.430 "
+  description = "ISE image version - available versions: 3.2.543, 3.3.430 & 3.4.608"
   type        = string
   default     = ""
 }
