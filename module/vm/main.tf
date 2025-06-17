@@ -72,7 +72,7 @@ resource "azurerm_linux_virtual_machine" "ise_vm" {
   size                = var.ise_vm_size_sku
   admin_username      = var.ise_vm_adminuser_name
   zone                = (index(var.ise_node_zone, each.value) % 3) + 1
-  user_data = base64encode(templatefile("${path.module}/user_data.tftpl", {
+  user_data = base64encode(templatefile("${path.module}/${var.ise_image_sku == "cisco-ise_3_4" ? "user_data_3_4.tftpl" : "user_data.tftpl"}", {
     hostname          = each.key
     primarynameserver = var.primarynameserver
     dnsdomain         = var.dnsdomain

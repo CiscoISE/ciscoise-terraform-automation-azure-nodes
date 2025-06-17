@@ -75,14 +75,14 @@ This example module creates below Azure VNET resources to setup the VNET infrast
 | <a name="input_github_token"></a> [github\_token](#input\_github\_token) | This token will be used to read the Github code having Repo and Workflow access | `string` | `""` |
 | <a name="input_ise_func_subnet"></a> [ise\_func\_subnet](#input\_ise\_func\_subnet) | Mention the subnet name for Function App VNET integration, it is a service dedicated subnet delegated to service Microsoft.Web/serverFarms. | `string` | `"ise_func_subnet"` |
 | <a name="input_ise_func_subnet_cidr"></a> [ise\_func\_subnet\_cidr](#input\_ise\_func\_subnet\_cidr) | List of CIDR block for Funcation App private subnet | `list(string)` | <pre>[<br>  "10.0.14.0/26"<br>]</pre> |
-| <a name="input_ise_image_sku"></a> [ise\_image\_sku](#input\_ise\_image\_sku) | ISE image sku - available values -  cisco-ise\_3\_2 & cisco-ise\_3\_3 | `string` | `"cisco-ise_3_2"` |
-| <a name="input_ise_image_version"></a> [ise\_image\_version](#input\_ise\_image\_version) | ISE image version - available versions: 3.2.543 & 3.3.430 | `string` | `"3.2.543"` |
+| <a name="input_ise_image_sku"></a> [ise\_image\_sku](#input\_ise\_image\_sku) | ISE image sku - available values -  cisco-ise\_3\_2, cisco-ise\_3\_3 & cisco-ise\_3\_4 | `string` | `"cisco-ise_3_2"` |
+| <a name="input_ise_image_version"></a> [ise\_image\_version](#input\_ise\_image\_version) | ISE image version - available versions: 3.2.543, 3.3.430 & 3.4.608 | `string` | `"3.2.543"` |
 | <a name="input_ise_lb_backend_address_pool_name"></a> [ise\_lb\_backend\_address\_pool\_name](#input\_ise\_lb\_backend\_address\_pool\_name) | Mention the name for ISE Loadbalancer backend pool | `string` | `"ise-BackendAddressPool"` |
 | <a name="input_ise_lb_name"></a> [ise\_lb\_name](#input\_ise\_lb\_name) | Provide the Loadbalancer name | `string` | `"ise-int-loadbalancer"` |
 | <a name="input_ise_lb_sku"></a> [ise\_lb\_sku](#input\_ise\_lb\_sku) | Mention the Loadbalancer SKU | `string` | `"Standard"` |
 | <a name="input_ise_offer"></a> [ise\_offer](#input\_ise\_offer) | Image Offer | `string` | `"cisco-ise-virtual"` |
 | <a name="input_ise_pan_node_names"></a> [ise\_pan\_node\_names](#input\_ise\_pan\_node\_names) | Mention the hostname for ISE PAN Primary and Secondary nodes | `list(string)` | <pre>[<br>  "ise-pan-primary",<br>  "ise-pan-secondary"<br>]</pre> |
-| <a name="input_ise_plan_name"></a> [ise\_plan\_name](#input\_ise\_plan\_name) | Plan Name for using the Marketplace ISE image, available options - cisco-ise\_3\_2 & cisco-ise\_3\_3 | `string` | `"cisco-ise_3_2"` |
+| <a name="input_ise_plan_name"></a> [ise\_plan\_name](#input\_ise\_plan\_name) | Plan Name for using the Marketplace ISE image, available options - cisco-ise\_3\_2 cisco-ise\_3\_3 & cisco-ise\_3\_4 | `string` | `"cisco-ise_3_2"` |
 | <a name="input_ise_plan_product"></a> [ise\_plan\_product](#input\_ise\_plan\_product) | Value of Image Offer for using inside VM resource plan block | `string` | `"cisco-ise-virtual"` |
 | <a name="input_ise_psn_node_names"></a> [ise\_psn\_node\_names](#input\_ise\_psn\_node\_names) | Mention the hostname for ISE PSN nodes | `list(string)` | <pre>[<br>  "ise-psn-node-1",<br>  "ise-psn-node-2"<br>]</pre> |
 | <a name="input_ise_publisher"></a> [ise\_publisher](#input\_ise\_publisher) | Name of the Image publisher | `string` | `"cisco"` |

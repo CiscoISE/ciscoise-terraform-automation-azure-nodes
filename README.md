@@ -1,4 +1,4 @@
-[![ISE VERSION](https://img.shields.io/badge/ISE%20SUPPORTED%20VERSIONS-3.2%20AND%203.3-blue?style=for-the-badge&logo=cisco)](#)
+[![ISE VERSION](https://img.shields.io/badge/ISE%20SUPPORTED%20VERSIONS-3.2%20,3.3%20AND%203.4-blue?style=for-the-badge&logo=cisco)](#)
 [![Terraform Azure](https://img.shields.io/badge/IaC-Terraform-blue?style=for-the-badge&logo=terraform)](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs)
 [![Azure](https://img.shields.io/badge/Cloud-Azure-blue?style=for-the-badge&logo=microsoftazure)](https://azure.microsoft.com/)
 [![Python](https://img.shields.io/badge/AZURE%20FUNCTION%20APP-Python-3572A5?style=for-the-badge)](https://github.com/CiscoISE/ciscoise-terraform-automation-azure-functions)
@@ -11,6 +11,7 @@
 ## ISE Supported Versions
 - 3.2
 - 3.3
+- 3.4
 
 ## Requirements
 - Terraform ~> 1.5.x
