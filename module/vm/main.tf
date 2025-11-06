@@ -73,16 +73,20 @@ resource "azurerm_linux_virtual_machine" "ise_vm" {
   admin_username      = var.ise_vm_adminuser_name
   zone                = (index(var.ise_node_zone, each.value) % 3) + 1
   user_data = base64encode(templatefile("${path.module}/${var.ise_image_sku == "cisco-ise_3_4" ? "user_data_3_4.tftpl" : "user_data.tftpl"}", {
-    hostname          = each.key
-    primarynameserver = var.primarynameserver
-    dnsdomain         = var.dnsdomain
-    ntpserver         = var.ntpserver
-    timezone          = var.timezone
-    password          = var.password
-    ersapi            = var.ersapi
-    openapi           = var.openapi
-    pxGrid            = var.pxGrid
-    pxgrid_cloud      = var.pxgrid_cloud
+    hostname              = each.key
+    primarynameserver     = var.primarynameserver
+    secondarynameserver   = var.secondarynameserver
+    tertiarynameserver    = var.tertiarynameserver
+    dnsdomain             = var.dnsdomain
+    ntpserver             = var.ntpserver
+    secondaryntpserver    = var.secondaryntpserver
+    tertiaryntpserver     = var.tertiaryntpserver
+    timezone              = var.timezone
+    password              = var.password
+    ersapi                = var.ersapi
+    openapi               = var.openapi
+    pxGrid                = var.pxGrid
+    pxgrid_cloud          = var.pxgrid_cloud
   }))
   #availability_set_id = azurerm_availability_set.ise_availability_set.id
 

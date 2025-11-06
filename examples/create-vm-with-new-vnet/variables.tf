@@ -268,6 +268,23 @@ variable "primarynameserver" {
   description = "Enter the IP address of the primary name server. Only IPv4 addresses are supported"
   type        = string
   default     = ""
+  
+  validation {
+    condition     = var.primarynameserver != null && var.primarynameserver != ""
+    error_message = "The primarynameserver variable must be defined and cannot be empty. Please provide a valid IP address for the primary name server."
+  }
+}
+
+variable "secondarynameserver" {
+  description = "Enter the IP address of the secondary name server (optional). Only IPv4 addresses are supported."
+  type        = string
+  default     = ""
+}
+
+variable "tertiarynameserver" {
+  description = "Enter the IP address of the tertiary name server (optional). Only IPv4 addresses are supported."
+  type        = string
+  default     = ""
 }
 
 variable "dnsdomain" {
@@ -278,6 +295,23 @@ variable "dnsdomain" {
 
 variable "ntpserver" {
   description = "Enter the IPv4 address or FQDN of the NTP server that must be used for synchronization, for example, time.nist.gov."
+  type        = string
+  default     = ""
+  
+  validation {
+    condition     = var.ntpserver != null && var.ntpserver != ""
+    error_message = "The ntpserver variable must be defined and cannot be empty. Please provide a valid IP address or FQDN for the NTP server."
+  }
+}
+
+variable "secondaryntpserver" {
+  description = "Enter the IPv4 address or FQDN of the secondary NTP server (optional)"
+  type        = string
+  default     = ""
+}
+
+variable "tertiaryntpserver" {
+  description = "Enter the IPv4 address or FQDN of the tertiary NTP server (optional)"
   type        = string
   default     = ""
 }
