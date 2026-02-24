@@ -22,7 +22,7 @@ locals {
 }
 
 module "ise_vnet" {
-  source               = "git@github.com:CiscoISE/ciscoise-terraform-automation-azure-vnet.git//modules/vnet"
+  source               = "../../module/vnet"
   location             = var.location
   vnet_name            = var.vnet_name
   ise_resource_group   = var.ise_resource_group
