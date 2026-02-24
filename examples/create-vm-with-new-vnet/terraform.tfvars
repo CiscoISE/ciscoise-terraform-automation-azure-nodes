@@ -68,6 +68,16 @@ marketplace_ise_image_agreement = true                # Set the value to true/fa
 primarynameserver = "168.63.129.16"   # Enter the IP address of the primary name server. Only IPv4 addresses are supported.
 dnsdomain         = "example.com"     # Enter the FQDN of the DNS domain. The entry can contain ASCII characters, numerals, hyphens (-), and periods (.).
 ntpserver         = "time.google.com" # Enter the IPv4 address or FQDN of the NTP server that must be used for synchronization, for example, time.nist.gov.
+
+# Optional secondary and tertiary DNS/NTP servers (only used for ISE 3.4+)
+# primarynameserver = "168.63.129.16" # Enter the IP address of the primary name server. Only IPv4 addresses are supported.
+secondarynameserver="168.63.129.16" 
+tertiarynameserver="168.63.129.16" 
+# ntpserver         = "time.google.com" # Enter the IPv4 address or FQDN of the NTP server that must be used for synchronization.
+secondaryntpserver="time1.google.com"
+tertiaryntpserver="time2.google.com"
+
+
 timezone          = "UTC"             # Enter a timezone that is allowed by ISE nodes. For information on the supported timezone formats, refer to this documentation - https://www.cisco.com/c/en/us/td/docs/security/ise/3-3/cli_guide/b_ise_CLI_Reference_Guide_33/b_ise_CLIReferenceGuide_33_chapter_011.html?#wp2884933107
 password          = "C!sc0Ind1@"      # Set a password for GUI-based login to Cisco ISE. The password that you enter must comply with the Cisco ISE password policy. The password must contain 6 to 25 characters and include at least one numeral, one uppercase letter, and one lowercase letter. The password cannot be the same as the username or its reverse (iseadmin or nimdaesi), cisco, or ocsic. The allowed special characters are @~*!,+=_-.
 ersapi            = "yes"             # Enter yes to enable ERS, or no to disallow ERS.
@@ -189,24 +199,24 @@ virtual_machines_psn = {
     storage : 500
   }
 
-  ise-psn-node-02 : {
-    roles : "PrimaryDedicatedMonitoring"
-    services : "PassiveIdentity, pxGrid, pxGridCloud"
-    size : "Standard_D4s_v4"
-    storage : 550
-  }
+  # ise-psn-node-02 : {
+  #   roles : "PrimaryDedicatedMonitoring"
+  #   services : "PassiveIdentity, pxGrid, pxGridCloud"
+  #   size : "Standard_D4s_v4"
+  #   storage : 550
+  # }
 
-  ise-psn-node-03 : {
-    size : "Standard_D4s_v4"
-    services : "PassiveIdentity, pxGrid"
-    storage : 600
-  }
+  # ise-psn-node-03 : {
+  #   size : "Standard_D4s_v4"
+  #   services : "PassiveIdentity, pxGrid"
+  #   storage : 600
+  # }
 
-  ise-psn-node-test : {
-    services : "Session, Profiler"
-    size : "Standard_D4s_v4"
-    storage : 500
-  }
+  # ise-psn-node-test : {
+  #   services : "Session, Profiler"
+  #   size : "Standard_D4s_v4"
+  #   storage : 500
+  # }
 }
 
 # virtual_machines_psn = {

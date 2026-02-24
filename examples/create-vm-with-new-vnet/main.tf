@@ -78,8 +78,12 @@ module "ise_pan_vm_cluster" {
   ise_vm_adminuser_name           = var.ise_vm_adminuser_name
   admin_ssh_public_key            = var.admin_ssh_key_path
   primarynameserver               = var.primarynameserver
+  secondarynameserver             = var.secondarynameserver
+  tertiarynameserver              = var.tertiarynameserver
   dnsdomain                       = var.dnsdomain
   ntpserver                       = var.ntpserver
+  secondaryntpserver              = var.secondaryntpserver
+  tertiaryntpserver               = var.tertiaryntpserver
   timezone                        = var.timezone
   password                        = var.password
   ersapi                          = var.ersapi
@@ -113,8 +117,12 @@ module "ise_psn_vm_cluster" {
   ise_vm_adminuser_name           = var.ise_vm_adminuser_name
   admin_ssh_public_key            = var.admin_ssh_key_path
   primarynameserver               = var.primarynameserver
+  secondarynameserver             = var.secondarynameserver
+  tertiarynameserver              = var.tertiarynameserver
   dnsdomain                       = var.dnsdomain
   ntpserver                       = var.ntpserver
+  secondaryntpserver              = var.secondaryntpserver
+  tertiaryntpserver               = var.tertiaryntpserver
   timezone                        = var.timezone
   password                        = var.password
   ersapi                          = var.ersapi
