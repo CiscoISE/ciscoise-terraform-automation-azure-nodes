@@ -30,11 +30,12 @@ Below is the cloned repository directory structure
     │   ├── main.tf
     │   ├── output.tf
     │   └── variable.tf
-    └── vm
-    ├── main.tf
-    │   ├──providers.tf
-    │   ├── user_data.tftpl
-    │   └── variables.tf
+    ├── vm
+    |   ├── main.tf
+    |   ├── output.tf
+    |   ├── providers.tf
+    |   ├── user_data.tftpl
+    |   └── variables.tf
     └── vnet
         ├── main.tf
         ├── output.tf
