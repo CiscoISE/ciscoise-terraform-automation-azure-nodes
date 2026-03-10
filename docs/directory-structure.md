@@ -7,8 +7,7 @@ Below is the cloned repository directory structure
 ├── README.md
 ├── docs
 │   ├── azure-cli-commands.md
-│   ├── directory-structure.md
-│   └── resource-created.md
+│   └── directory-structure.md
 ├── examples
 │   ├── create-vm-with-existing-vnet
 │   │   ├── README.md
