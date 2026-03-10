@@ -369,6 +369,11 @@ variable "virtual_machines_pan" {
     error_message = "Roles can only accept 'PrimaryMonitoring or SecondaryMonitoring' and 'SecondaryAdmin' values."
   }
 
+  validation {
+    condition     = alltrue([for key, v in var.virtual_machines_pan : can(regex("^[a-zA-Z][a-zA-Z0-9-]{0,18}$", key))])
+    error_message = "Hostname must not exceed 19 characters. Valid characters include alphanumerical (A–Z, a–z, 0–9), and the hyphen (-). The first character must be a letter. ${format("%#v", { for key, v in var.virtual_machines_pan : key => length(key) if can(regex("^[a-zA-Z][a-zA-Z0-9-]{0,17}$", key)) == false })}"
+  }
+
 }
 
 variable "virtual_machines_psn" {
@@ -415,6 +420,11 @@ variable "virtual_machines_psn" {
   validation {
     condition     = length([for vm in values(var.virtual_machines_psn) : vm if vm.roles == null && vm.services == null]) == 0
     error_message = "PSN node should contain one of the role or service"
+  }
+
+  validation {
+    condition     = alltrue([for key, v in var.virtual_machines_psn : can(regex("^[a-zA-Z][a-zA-Z0-9-]{0,18}$", key))])
+    error_message = "Hostname must not exceed 19 characters. Valid characters include alphanumerical (A–Z, a–z, 0–9), and the hyphen (-). The first character must be a letter. ${format("%#v", { for key, v in var.virtual_machines_psn : key => length(key) if can(regex("^[a-zA-Z][a-zA-Z0-9-]{0,17}$", key)) == false })}"
   }
 
 }
