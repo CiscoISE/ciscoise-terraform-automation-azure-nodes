@@ -367,10 +367,11 @@ variable "virtual_machines_pan" {
   }
   EOT
   type = map(object({
-    size     = string
-    storage  = number
-    services = optional(string)
-    roles    = optional(string, "SecondaryAdmin")
+    size       = string
+    storage    = number
+    services   = optional(string)
+    roles      = optional(string, "SecondaryAdmin")
+    enable_nlb = optional(bool, false)
   }))
 
   validation {
@@ -398,10 +399,11 @@ variable "virtual_machines_psn" {
   }
   EOT
   type = map(object({
-    size     = string
-    storage  = number
-    services = optional(string)
-    roles    = optional(string)
+    size       = string
+    storage    = number
+    services   = optional(string)
+    roles      = optional(string)
+    enable_nlb = optional(bool, false)
   }))
 
   validation {

@@ -15,7 +15,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 output "ise-vm-backendpool" {
-  value = azurerm_lb_backend_address_pool.ise-vm-backendpool.id
+  value = azurerm_lb_backend_address_pool.ise-vm-backendpool[*].id
 }
 
 # output "ise_vm_private_dns_zone" {
@@ -32,5 +32,5 @@ output "private_dns_records" {
 # }
 
 output "loadbalancer_frontendIP" {
-  value = azurerm_lb.ise-lb.private_ip_address
+  value = azurerm_lb.ise-lb[*].private_ip_address
 }

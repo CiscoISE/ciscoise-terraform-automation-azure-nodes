@@ -354,10 +354,11 @@ variable "virtual_machines_pan" {
   }
   EOT
   type = map(object({
-    size     = string
-    storage  = number
-    services = optional(string)
-    roles    = optional(string, "SecondaryAdmin")
+    size       = string
+    storage    = number
+    services   = optional(string)
+    roles      = optional(string, "SecondaryAdmin")
+    enable_nlb = optional(bool, false)
   }))
   # default = {
   #   ise-pan-primary   = { size = "Standard_B2ms", storage = 400 } # NOTE: Don't pass the values for services and roles in Primary Node.
@@ -389,10 +390,11 @@ variable "virtual_machines_psn" {
   }
   EOT
   type = map(object({
-    size     = string
-    storage  = number
-    services = optional(string)
-    roles    = optional(string)
+    size       = string
+    storage    = number
+    services   = optional(string)
+    roles      = optional(string)
+    enable_nlb = optional(bool, false)
   }))
   # default = {
   #   ise-psn-node-1 = { size = "Standard_D4s_v4", storage = 500, services = "Session, Profiler, SXP, DeviceAdmin" }

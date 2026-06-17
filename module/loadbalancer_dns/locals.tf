@@ -26,4 +26,7 @@ locals {
   username_password_key     = var.username_password_key
   username_password_value   = [var.ise_vm_adminuser_name, var.password]
   combined_user_password_kv = zipmap(local.username_password_key, local.username_password_value)
+  create_nlb                = anytrue(flatten([for vm in [var.virtual_machines_pan, var.virtual_machines_psn] : [for instance, details in vm : details.enable_nlb]]))
+  combined_nodes            = merge(var.virtual_machines_pan, var.virtual_machines_psn)
+  enabled_nodes             = [for vm_name, vm_attribute in local.combined_nodes : vm_name if vm_attribute.enable_nlb == true]
 }

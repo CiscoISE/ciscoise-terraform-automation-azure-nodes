@@ -142,32 +142,40 @@ virtual_machines_pan = {
 }
 
 
-# Enter the PSN node hostname as key and other allowed attributes in the values - (Allowed attribues size, storage, services, roles) comma space separated, currently only Eight PSN nodes are supported in this ISE stack deployment.
+# Specify instance configuration for N PSN nodes. It should follow below syntax where key is the hostname and values are instance attributes.
 # NOTE: Hostname only supports alphanumeric characters and hyphen (-). The length of the hostname should not exceed 19 characters, otherwise deployment will fail
-
+# Allowed values for enable_nlb : true or false. Specify true to add the ISE nodes as targets for Load Balancer, default value is false.
 /*
-This is the reference block for ISE node variables -  How to update the variable and it's attributes
-  {
+ {
     <hostname> = {
-      size = "<vm_size>"
-      storage = "<storage_size>"
-      services =  "<service_1>,<service_2>"
-      roles = "<role_1>,<role_2>"
+      size        = "<vm_size>"
+      storage     = "<storage_size>"
+      services    = "<service_1>,<service_2>"
+      roles       = "<role_1>,<role_2>"
+      enable_nlb  = true|false
     }
   }
 
+Please use below example for the reference.
 
-Example usage -
-
-virtual_machines_psn = {
-  ise-psn-node-2: {
-    roles: "PrimaryDedicatedMonitoring"
-    services: "Session, Profiler, pxGrid"
-    size: "Standard_B2ms"
-    storage: 500
-  }
+  virtual_machines_psn = {
+    secmonitoring-server = {
+      size       = "Standard_D8s_v4"
+      storage    = 500
+      roles      = "SecondaryDedicatedMonitoring"
+      enable_nlb = true
+    }
+    ise-psn-node-2 = {
+      size       = "Standard_D4s_v4"
+      storage    = 600
+      services   = "Session,Profiler,PassiveIdentity"
+      enable_nlb = true
+    }
+    ise-psn-node-3 = {
+      size      = "Standard_F16s_v2"
+      storage   = 700
+    }
 }
-
 */
 
 virtual_machines_psn = {

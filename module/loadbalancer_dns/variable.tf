@@ -184,18 +184,20 @@ variable "github_repo" {
 
 variable "virtual_machines_pan" {
   type = map(object({
-    size     = string
-    storage  = number
-    services = optional(string)
-    roles    = optional(string)
+    size       = string
+    storage    = number
+    services   = optional(string)
+    roles      = optional(string)
+    enable_nlb = optional(bool, false)
   }))
 }
 
 variable "virtual_machines_psn" {
   type = map(object({
-    size     = string
-    storage  = number
-    services = optional(string, "Session, Profiler")
-    roles    = optional(string)
+    size       = string
+    storage    = number
+    services   = optional(string, "Session, Profiler")
+    roles      = optional(string)
+    enable_nlb = optional(bool, false)
   }))
 }

@@ -22,12 +22,12 @@ data "azurerm_subnet" "ise_func_subnet" {
 
 
 resource "azurerm_storage_account" "ise-app-storage" {
-  name                          = "iseappstorage${random_string.function_app_suffix.result}"
-  resource_group_name           = var.ise_resource_group
-  location                      = var.location
-  account_tier                  = "Standard"
-  account_replication_type      = "GRS"
-  public_network_access_enabled = false
+  name                            = "iseappstorage${random_string.function_app_suffix.result}"
+  resource_group_name             = var.ise_resource_group
+  location                        = var.location
+  account_tier                    = "Standard"
+  account_replication_type        = "GRS"
+  public_network_access_enabled   = false
   allow_nested_items_to_be_public = false
 }
 

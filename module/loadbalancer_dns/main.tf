@@ -67,6 +67,7 @@ resource "azurerm_private_dns_a_record" "ise_vm_dns_record" {
 /* Creating a Network loadbalancer for the ISE PAN nodes */
 
 resource "azurerm_lb" "ise-lb" {
+  count               = local.create_nlb ? 1 : 0
   name                = var.ise_lb_name
   location            = var.location
   resource_group_name = var.ise_resource_group
@@ -83,7 +84,9 @@ resource "azurerm_lb" "ise-lb" {
 /* Crreating a Backend Pool for the Nodes */
 
 resource "azurerm_lb_backend_address_pool" "ise-vm-backendpool" {
-  loadbalancer_id = azurerm_lb.ise-lb.id
+  count = local.create_nlb ? 1 : 0
+
+  loadbalancer_id = azurerm_lb.ise-lb[0].id
   name            = var.ise_lb_backend_address_pool_name
 
   depends_on = [azurerm_lb.ise-lb]
@@ -93,9 +96,9 @@ resource "azurerm_lb_backend_address_pool" "ise-vm-backendpool" {
 /* Registering nodes in loadbalancer backend pool */
 
 resource "azurerm_lb_backend_address_pool_address" "ise-vm" {
-  for_each                = toset(local.ise_node_name)
+  for_each                = local.create_nlb ? toset(local.enabled_nodes) : []
   name                    = "ISE-backend-vm-ip-${each.key}"
-  backend_address_pool_id = azurerm_lb_backend_address_pool.ise-vm-backendpool.id
+  backend_address_pool_id = azurerm_lb_backend_address_pool.ise-vm-backendpool[0].id
   virtual_network_id      = data.azurerm_virtual_network.ise_vnet.id
   ip_address              = data.azurerm_virtual_machine.ise_vm_nic_ip[each.key].private_ip_address
   depends_on = [
@@ -107,12 +110,15 @@ resource "azurerm_lb_backend_address_pool_address" "ise-vm" {
 /* Health probe for backend */
 
 resource "azurerm_lb_probe" "ise_health_checks" {
-  loadbalancer_id     = azurerm_lb.ise-lb.id
+  count               = local.create_nlb ? 1 : 0
+  loadbalancer_id     = azurerm_lb.ise-lb[0].id
   name                = "https-probe"
   protocol            = "Tcp"
   port                = 443
   interval_in_seconds = 15
   number_of_probes    = 2
+
+  depends_on = [azurerm_lb.ise-lb]
 }
 
 
@@ -120,70 +126,88 @@ resource "azurerm_lb_probe" "ise_health_checks" {
 
 
 resource "azurerm_lb_rule" "ise-lb-rule-psn-1" {
-  loadbalancer_id                = azurerm_lb.ise-lb.id
+  count                          = local.create_nlb ? 1 : 0
+  loadbalancer_id                = azurerm_lb.ise-lb[0].id
   name                           = "ise-lb-rule-psn-1"
   protocol                       = "Udp"
   frontend_port                  = 1812
   backend_port                   = 1812
   frontend_ip_configuration_name = var.frontend_lb_ip_name
-  probe_id                       = azurerm_lb_probe.ise_health_checks.id
-  backend_address_pool_ids       = [azurerm_lb_backend_address_pool.ise-vm-backendpool.id]
+  probe_id                       = azurerm_lb_probe.ise_health_checks[0].id
+  backend_address_pool_ids       = [azurerm_lb_backend_address_pool.ise-vm-backendpool[0].id]
+
+  depends_on = [azurerm_lb.ise-lb]
 }
 
 resource "azurerm_lb_rule" "ise-lb-rule-psn-2" {
-  loadbalancer_id                = azurerm_lb.ise-lb.id
+  count                          = local.create_nlb ? 1 : 0
+  loadbalancer_id                = azurerm_lb.ise-lb[0].id
   name                           = "ise-lb-rule-psn-2"
   protocol                       = "Udp"
   frontend_port                  = 1813
   backend_port                   = 1813
   frontend_ip_configuration_name = var.frontend_lb_ip_name
-  probe_id                       = azurerm_lb_probe.ise_health_checks.id
-  backend_address_pool_ids       = [azurerm_lb_backend_address_pool.ise-vm-backendpool.id]
+  probe_id                       = azurerm_lb_probe.ise_health_checks[0].id
+  backend_address_pool_ids       = [azurerm_lb_backend_address_pool.ise-vm-backendpool[0].id]
+
+  depends_on = [azurerm_lb.ise-lb]
 }
 
 resource "azurerm_lb_rule" "ise-lb-rule-psn-3" {
-  loadbalancer_id                = azurerm_lb.ise-lb.id
+  count                          = local.create_nlb ? 1 : 0
+  loadbalancer_id                = azurerm_lb.ise-lb[0].id
   name                           = "ise-lb-rule-psn-3"
   protocol                       = "Tcp"
   frontend_port                  = 49
   backend_port                   = 49
   frontend_ip_configuration_name = var.frontend_lb_ip_name
-  probe_id                       = azurerm_lb_probe.ise_health_checks.id
-  backend_address_pool_ids       = [azurerm_lb_backend_address_pool.ise-vm-backendpool.id]
+  probe_id                       = azurerm_lb_probe.ise_health_checks[0].id
+  backend_address_pool_ids       = [azurerm_lb_backend_address_pool.ise-vm-backendpool[0].id]
+
+  depends_on = [azurerm_lb.ise-lb]
 }
 
 resource "azurerm_lb_rule" "ise-lb-rule-psn-4" {
-  loadbalancer_id                = azurerm_lb.ise-lb.id
+  count                          = local.create_nlb ? 1 : 0
+  loadbalancer_id                = azurerm_lb.ise-lb[0].id
   name                           = "ise-lb-rule-psn-4"
   protocol                       = "Udp"
   frontend_port                  = 1645
   backend_port                   = 1645
   frontend_ip_configuration_name = var.frontend_lb_ip_name
-  probe_id                       = azurerm_lb_probe.ise_health_checks.id
-  backend_address_pool_ids       = [azurerm_lb_backend_address_pool.ise-vm-backendpool.id]
+  probe_id                       = azurerm_lb_probe.ise_health_checks[0].id
+  backend_address_pool_ids       = [azurerm_lb_backend_address_pool.ise-vm-backendpool[0].id]
+
+  depends_on = [azurerm_lb.ise-lb]
 }
 
 resource "azurerm_lb_rule" "ise-lb-rule-psn-5" {
-  loadbalancer_id                = azurerm_lb.ise-lb.id
+  count                          = local.create_nlb ? 1 : 0
+  loadbalancer_id                = azurerm_lb.ise-lb[0].id
   name                           = "ise-lb-rule-psn-5"
   protocol                       = "Udp"
   frontend_port                  = 1646
   backend_port                   = 1646
   frontend_ip_configuration_name = var.frontend_lb_ip_name
-  probe_id                       = azurerm_lb_probe.ise_health_checks.id
-  backend_address_pool_ids       = [azurerm_lb_backend_address_pool.ise-vm-backendpool.id]
+  probe_id                       = azurerm_lb_probe.ise_health_checks[0].id
+  backend_address_pool_ids       = [azurerm_lb_backend_address_pool.ise-vm-backendpool[0].id]
+
+  depends_on = [azurerm_lb.ise-lb]
 }
 
 resource "azurerm_lb_rule" "ise-lb-rule-psn-gui" {
-  loadbalancer_id                = azurerm_lb.ise-lb.id
+  count                          = local.create_nlb ? 1 : 0
+  loadbalancer_id                = azurerm_lb.ise-lb[0].id
   name                           = "ise-lb-rule-psn-gui"
   protocol                       = "Tcp"
   frontend_port                  = 443
   backend_port                   = 443
   frontend_ip_configuration_name = var.frontend_lb_ip_name
-  probe_id                       = azurerm_lb_probe.ise_health_checks.id
-  backend_address_pool_ids       = [azurerm_lb_backend_address_pool.ise-vm-backendpool.id]
+  probe_id                       = azurerm_lb_probe.ise_health_checks[0].id
+  backend_address_pool_ids       = [azurerm_lb_backend_address_pool.ise-vm-backendpool[0].id]
   load_distribution              = "SourceIPProtocol"
+
+  depends_on = [azurerm_lb.ise-lb]
 }
 
 
